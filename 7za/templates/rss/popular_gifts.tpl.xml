@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<rss version="2.0">
+
+<channel>
+	<title>Интернет-магазин подарков "Товары На Дом"</title>
+	<link>http://www.tnd.kiev.ua/</link>
+	<description>Оригинальные подарки в магазине оригинальных подарков и сувениров TND.KIEV.UA</description>
+	<pubDate>{$pub_date}</pubDate>
+	<language>ru</language>
+	<ttl>300</ttl>
+	<image>
+	   <url>http://{$smarty.server.HTTP_HOST}/resources/images/admin/logo.gif</url>
+	   <title>Интернет-магазин подарков "Товары На Дом"</title>
+	</image>
+	{foreach from=$products item=item}
+	<item>
+		<title>{$item.product_name}</title>
+		<link>http://{$smarty.server.HTTP_HOST}/product/{$item.product_id}/</link>
+		<guid>http://{$smarty.server.HTTP_HOST}/product/{$item.product_id}/</guid>
+		<description><![CDATA[<img src="http://{$smarty.server.HTTP_HOST}/resources/images/mm_files/{$item.image_file_id}t.jpg" border=0 vspace=10 hspace=10>{$item.description|strip_tags|trim|truncate:300:"..."}]]></description>
+	</item>
+	{/foreach}
+	</channel>
+</rss>

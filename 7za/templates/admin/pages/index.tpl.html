@@ -1,0 +1,65 @@
+<script language="JavaScript" type="text/javascript" src="{$URL_SCRIPT}images.js"></script>
+ 	<h3>Редактирование страниц</h3>
+ 	      <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+      		{foreach name=pl1 from=$pages item=paglev1}
+            <tr>
+              <td width="24"><img src="{$URL_IMAGE}admin/page.gif" width="24" height="24"></td>
+              <td colspan="5" class="page_line">{$paglev1.title}</td>
+              <td align="right" class="page_line">
+                <table border="0" cellpadding="0" cellspacing="0">
+                  <tr>
+                   <td width="24"><a href="index.php?mode=popup&page_id={$paglev1.page_id}" target="popup" onClick="openWindow(300, 150)"><img src="{$URL_IMAGE}admin/link.gif" width="24" height="24" border="0" align="absmiddle" title="Показать адрес страницы" alt="Показать адрес страницы"></a></td>
+                   <td width="24"><a href="index.php?mode=edit_page&page_id={$paglev1.page_id}"><img src="{$URL_IMAGE}admin/page_edit.gif" width="24" height="24" align="absmiddle" border="0" alt="Редактировать страницу" title="Редактировать страницу"></a></td>
+                   <td width="24">&nbsp;</td>
+                   <td width="24">&nbsp;</td>
+                   <td width="24"><a href="index.php?mode=add_page&page_id={$paglev1.page_id}"><img src="{$URL_IMAGE}admin/page_add.gif" width="24" height="24" border="0" align="absmiddle" alt="Добавить страницу" title="Добавить страницу"></a></td>
+                   <td width="24">&nbsp;</td>
+                   <td width="24">&nbsp;</td>
+				  </tr>  
+				</table>	                   
+              </td>
+            </tr>
+              {foreach name=pl2 from=$paglev1.pages item=paglev2}
+              <tr>
+                <td width="24" nowrap><img src="{$URL_IMAGE}admin/{if $smarty.foreach.pl2.last}line_v_r_b{else}line_v_r{/if}.gif" width="24" height="24"></td>
+                <td width="24" nowrap ><img src="{$URL_IMAGE}admin/page.gif" width="24" height="24"></td>
+                <td colspan="4" class="page_line">{$paglev2.title}</td>
+                <td align="right" class="page_line">
+                  <table border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+	                  <td width="24"><a href="index.php?mode=popup&page_id={$paglev2.page_id}" target="popup" onClick="openWindow(300, 150)"><img src="{$URL_IMAGE}admin/link.gif" width="24" height="24" border="0" align="absmiddle" title="Показать адрес страницы" alt="Показать адрес страницы"></a></td>
+	                  <td width="24"><a href="index.php?mode=edit_page&page_id={$paglev2.page_id}"><img src="{$URL_IMAGE}admin/page_edit.gif" width="24" height="24" align="absmiddle" border="0" alt="Редактировать страницу" title="Редактировать страницу"></a></td>
+					  <td width="24"><a href="index.php?mode=move_page_up&page_id={$paglev2.page_id}"><img src="{$URL_IMAGE}admin/page_up.gif" width="24" height="24" align="absmiddle" border="0" alt="Переместить вверх" title="Переместить вверх"></a></td>
+					  <td width="24"><a href="index.php?mode=move_page_down&page_id={$paglev2.page_id}"><img src="{$URL_IMAGE}admin/page_down.gif" width="24" height="24" align="absmiddle" border="0" alt="Переместить вниз" title="Переместить вниз"></a></td>
+					  <td width="24"><a href="index.php?mode=add_page&page_id={$paglev2.page_id}"><img src="{$URL_IMAGE}admin/page_add.gif" width="24" height="24" border="0" align="absmiddle" alt="Добавить страницу" title="Добавить страницу"></a></td>
+					  <td width="24"><a href="index.php?mode=visible&page_id={$paglev2.page_id}"><img src="{$URL_IMAGE}admin/page_{if $paglev2.visible}shown{else}hidden{/if}.gif" width="24" height="24" align="absmiddle" border="0" alt="Показать / скрыть" title="Показать / скрыть"></a></td>
+					  <td width="24">{if !$paglev2.forbid_remove}<a href="#" onclick="if (confirm('Вы действительно хотите удалить эту папку и все страницы в ней?\n{$paglev2.title}')) location.href='index.php?mode=delete_page&page_id={$paglev2.page_id}';"><img src="{$URL_IMAGE}admin/page_delete.gif" width="24" height="24" align="absmiddle" border="0" alt="Удалить страницу" title="Удалить страницу"></a>{else}&nbsp;{/if}</td>
+					</tr>  
+				  </table>			 
+                </td>
+              </tr> 
+                {foreach name=pl3 from=$paglev2.pages item=paglev3}
+                <tr>
+                  <td width="24" nowrap >{if !$smarty.foreach.pl2.last}<img src="{$URL_IMAGE}admin/line_v.gif" width="24" height="24">{else}&nbsp{/if}</td>
+                  <td width="24" nowrap ><img src="{$URL_IMAGE}admin/{if $smarty.foreach.pl3.last}line_v_r_b{else}line_v_r{/if}.gif" width="24" height="24"></td>
+                  <td width="24" nowrap ><img src="{$URL_IMAGE}admin/page.gif" width="24" height="24"></td>
+                  <td colspan="3" class="page_line">{$paglev3.title}</td>
+                  <td align="right" class="page_line">
+                <table border="0" cellpadding="0" cellspacing="0">
+                  <tr>                  
+	                  <td width="24"><a href="index.php?mode=popup&page_id={$paglev3.page_id}" target="popup" onClick="openWindow(300, 150)"><img src="{$URL_IMAGE}admin/link.gif" width="24" height="24" border="0" align="absmiddle" title="Показать адрес страницы" alt="Показать адрес страницы"></a></td>
+	                  <td width="24"><a href="index.php?mode=edit_page&page_id={$paglev3.page_id}"><img src="{$URL_IMAGE}admin/page_edit.gif" width="24" height="24" align="absmiddle" border="0" alt="Редактировать страницу" title="Редактировать страницу"></a></td>
+					  <td width="24"><a href="index.php?mode=move_page_up&page_id={$paglev3.page_id}"><img src="{$URL_IMAGE}admin/page_up.gif" width="24" height="24" align="absmiddle" border="0" alt="Переместить вверх" title="Переместить вверх"></a></td>
+					  <td width="24"><a href="index.php?mode=move_page_down&page_id={$paglev3.page_id}"><img src="{$URL_IMAGE}admin/page_down.gif" width="24" height="24" align="absmiddle" border="0" alt="Переместить вниз" title="Переместить вниз"></a></td>
+					  <td width="24">&nbsp;</td>
+					  <td width="24"><a href="index.php?mode=visible&page_id={$paglev3.page_id}"><img src="{$URL_IMAGE}admin/page_{if $paglev3.visible}shown{else}hidden{/if}.gif" width="24" height="24" align="absmiddle" border="0" alt="Показать / скрыть" title="Показать / скрыть"></a></td>
+					  <td width="24">{if !$paglev3.forbid_remove}<a href="#" onclick="if (confirm('Вы действительно хотите удалить эту папку и все страницы в ней?\n{$paglev3.title}')) location.href='index.php?mode=delete_page&page_id={$paglev3.page_id}';"><img src="{$URL_IMAGE}admin/page_delete.gif" width="24" height="24" align="absmiddle" border="0" alt="Удалить страницу" title="Удалить страницу"></a>{else}&nbsp;{/if}</td>
+				  </tr>  
+				</table>					  
+                  </td>
+                </tr> 
+                {/foreach}
+              {/foreach}
+            {/foreach}
+            
+          </table>

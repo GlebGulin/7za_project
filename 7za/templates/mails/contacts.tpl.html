@@ -1,0 +1,10 @@
+<html>
+<body>
+С контактной формы сайта {$smarty.server.HTTP_HOST} поступило сообщение:<br /><br />
+Имя отправителя: {$name}<br />
+{if $email}E-mail: {$email}<br />{/if}
+{if $phone}Контактный телефон: {$phone}<br />{/if}
+Тема сообщения: {$subject}<br /><br />
+{$message|nl2br}
+</body>
+</html>

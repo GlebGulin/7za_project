@@ -1,0 +1,29 @@
+<h3>Комментарии к товарам</h3>
+
+<table width="100%" border="0" cellpadding="3" cellspacing="1">
+ <tr>
+  <td class="tableHeader">ID</td>
+  <td class="tableHeader">Комментарий</td>
+  <td class="tableHeader">Товар</td>
+  <td class="tableHeader">Дата</td>
+  <td class="tableHeader">Автор</td>
+  <td class="tableHeader" width="90">&nbsp;</td>
+ </tr>
+ {foreach name="comments" from=$comments item=item}
+ <tr class="tableRow{cycle values="1,2"}">
+  <td align="center">{$item.comment_id}</td>
+  <td>{$item.comment_text|nl2br}</td>
+  <td align="center"><a href="/product/{$item.item_id}/" target="_blank">{$item.product_name}</a></td>
+  <td align="center">{$item.added_time|date_format:"%d.%m.%Y"}</td>
+  <td align="center">{$item.author} ({$item.author_ip})</td>
+  <td align="center">
+   <a href="index.php?mode=edit&id={$item.comment_id}" title="Редактировать"><img src="{$URL_IMAGE}admin/edit.gif" border="0" align="absmiddle"></a>&nbsp;
+   <a href="#" title="Удалить" onClick="if (confirm('Вы действительно хотите удалить этот комментарий?')) location.href='index.php?mode=delete&id={$item.comment_id}'; return false;"><img src="{$URL_IMAGE}admin/delete.gif" border="0" align="absmiddle"></a>
+  </td>
+ </tr>
+ {foreachelse}
+ <tr>
+  <td class="header" align="center" colspan="5">Отсутствуют комментарии</td>
+ </tr>
+ {/foreach}
+</table>

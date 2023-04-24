@@ -1,0 +1,19 @@
+<h1>Добавление группы параметров продуктов</h1>
+       
+<form action="parameters.php?mode=save_new_group" method="POST" enctype="multipart/form-data" onSubmit="if (hasEmptyFields('group_name', false, 'Заполните форму, пожалуйста.')) return false;">
+<table width="100%" border="0" cellpadding="3" cellspacing="1" align="center">
+
+ <tr>
+  <td class="tableHeaderLeft">Название группы параметров:</td>
+  <td class="tableRow1"><input type="text" name="group_name" class="input" value="{$group.group_name}" id="group_name" /></td>
+ </tr>
+
+ <tr>
+  <td>&nbsp;</td>
+  <td>
+    <input type="submit" class="button" value="Добавить">&nbsp;
+    <input type="button" onClick="location.href='parameters.php'; return false;" class="button" value="Отмена">
+   </td>
+ </tr>
+</table>
+</form>

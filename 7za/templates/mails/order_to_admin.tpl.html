@@ -1,0 +1,122 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1251">
+</head>
+<body>
+{literal}
+<style type="text/css">
+
+.tableHeaderLeft{
+	width:25%;
+	text-align:right;
+}
+
+.tableRow1{
+	width:30%;
+	text-align:left;
+}
+
+</style>
+{/literal}
+
+Èíôîðìàöèÿ î ïîêóïàòåëå:
+
+	<table width="70%" border="1" cellpadding="0" cellspacing="0">
+		<tr>
+			<td class="tableHeaderLeft">ID:</td>
+			<td class="tableRow1">&nbsp;{$order.order_id}</td>
+ 			<td class="tableHeaderLeft">Äàòà è âðåìÿ:</td>
+ 			<td class="tableRow1">&nbsp;{$order.added_time|date_format:"%d.%m.%Y %H:%M"}</td>
+		</tr>
+		<tr>
+			<td class="tableHeaderLeft">Ôàìèëèÿ:</td>
+			<td class="tableRow1">&nbsp;{$order.surname}</td>
+ 			<td class="tableHeaderLeft">Êîíòàêòíûé å-mail:</td>
+ 			<td class="tableRow1">&nbsp;{$order.email}</td>
+		</tr>
+		<tr>
+        	<td class="tableHeaderLeft">Èìÿ:</td>
+  			<td class="tableRow1">&nbsp;{$order.firstname}</td>
+			<td class="tableHeaderLeft">Êîíòàêòíûé òåëåôîí:</td>
+			<td class="tableRow1">&nbsp;{$order.phone}</td>
+  		</tr>
+  		<tr>
+        	<td class="tableHeaderLeft">Îò÷åñòâî:</td>
+  			<td class="tableRow1">&nbsp;{$order.lastname}</td>
+ 			<td class="tableHeaderLeft">&nbsp;</td>
+ 			<td class="tableRow1">&nbsp;</td>
+ 		</tr>
+ 		<tr>
+ 			<td colspan="4" align="center"><strong>Òî÷íûé àäðåñ äîñòàâêè</strong></td>
+ 		</tr>
+ 		<tr>
+ 			<td class="tableHeaderLeft">Ãîðîä:</td>
+ 			<td class="tableRow1" colspan="3">&nbsp;{$order.city_name}</td>
+ 		</tr>
+ 		<tr>
+ 			<td class="tableHeaderLeft">Óëèöà:</td>
+ 			<td class="tableRow1" colspan="3">&nbsp;{$order.street}</td>
+ 		</tr>
+ 		<tr>
+ 			<td class="tableHeaderLeft">Äîì:</td>
+ 			<td class="tableRow1" colspan="3">&nbsp;{$order.number}</td>
+ 		</tr>
+ 		<tr>
+ 			<td class="tableHeaderLeft">Ïîäúåçä:</td>
+ 			<td class="tableRow1" colspan="3">&nbsp;{$order.entrance}</td>
+ 		</tr>
+ 		<tr>
+	 		<td class="tableHeaderLeft">Êîä:</td>
+ 			<td class="tableRow1" colspan="3">&nbsp;{$order.code}</td>
+ 		</tr>
+ 		<tr>
+ 			<td class="tableHeaderLeft">Ýòàæ:</td>
+ 			<td class="tableRow1" colspan="3">&nbsp;{$order.floor}</td>
+ 		</tr>
+ 		<tr>
+ 			<td class="tableHeaderLeft">Êâàðòèðà (îôèñ):</td>
+ 			<td class="tableRow1" colspan="3">&nbsp;{$order.office}</td>
+ 		</tr>
+ 		<tr>
+ 			<td class="tableHeaderLeft">Äîïîëíèòåëüíàÿ èíôîðìàöèÿ:</td>
+ 			<td class="tableRow1" colspan="3">&nbsp;{$order.comment}</td>
+ 		</tr>
+
+ 	</table>
+
+ <br />
+Çàêàç:
+<table border="1" cellspacing="0" cellpadding="2" width="70%">
+ <tr>
+  <th>¹</th>
+  <th>ID</th>
+  <th>Íàçâàíèå ïðîäóêòà</th>
+  <th>Öåíà</th>
+  <th>Êîëè÷åñòâî</th>
+  <th>Ñóììà</th>
+ </tr>
+{foreach name="order" from=$order.items item=item key=id}
+ <tr>
+  <td align="center">{$smarty.foreach.order.iteration}</td>
+  <td align="center">{$item.product_id}</td>
+  <td align="left">{$item.product.product_name}</td>
+  <td align="center">{$item.product_price|price_format:" ãðí"}</td>
+  <td align="center">{$item.product_qnt}</td>
+  <td align="center">{$item.product_summ|price_format:" ãðí"}</td>
+ </tr>
+{/foreach}
+ <tr>
+  <td colspan="4" align="right">Äîñòàâêà:</td>
+  <td>&nbsp;</td>
+  <td align="center">{$order.order_delivery|price_format:" ãðí"}</td>
+ </tr>
+
+ <tr>
+  <td colspan="4" align="right">Âñåãî:</td>
+  <td align="center">&nbsp;</td>
+  <td align="center">{$order.order_common_summ|price_format:" ãðí"}</td>
+ </tr>
+
+</table>
+</body>
+</html>

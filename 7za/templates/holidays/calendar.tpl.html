@@ -1,0 +1,37 @@
+<table border="0" cellpadding="2" cellspacing="1" class="cal_tbl">
+ <tr class="cal_title">
+  <td colspan="7" align="center">
+   <a href="/holidays/{$prev_month}/">&lt;</a>&nbsp;
+   {$cal_months[$month_num]} {$month|truncate:4:false}
+   &nbsp;<a href="/holidays/{$next_month}/">&gt;</a>
+  </td>
+ </tr>
+ <tr class="cal_wd" align="center">
+  <td>Пн</td>
+  <td>Вт</td>
+  <td>Ср</td>
+  <td>Чт</td>
+  <td>Пт</td>
+  <td>Сб</td>
+  <td>Вс</td>
+ </tr>
+ {foreach from=$calendar.weeks item=week}
+ <tr class="cal_days" align="center">
+ {foreach name=days from=$week item=day}
+  <td class="{if $day.today}cal_today {/if}{if $day.title}{if $day.importance==3}cal_hol{else}cal_hol_sm{/if}{/if}{if $smarty.foreach.days.iteration==7 || $smarty.foreach.days.iteration==6} cal_weekend{/if}">
+   {if $day.title}<a href="/holidays/{$day.date}/" title="{$day.title}">{$day.num}</a>{else}{$day.num|default:"&nbsp;"}{/if}
+  </td>
+ {/foreach}
+ </tr>
+ {/foreach}
+</table>
+
+{if $holiday_today}
+<div class="u_cal_today"><strong>Сегодня:</strong><br /><a href="/holidays/{$holiday_today.holiday_date|date_format:"%m-%d"}/">{$holiday_today.title}</a></div>
+{/if}
+
+<div class="cal_next_hol">Ближайшие праздники:<br />
+{foreach from=$next_holidays item=hol}
+<a href="/holidays/{$hol.holiday_date|date_format:"%m-%d"}/">{$hol.title}</a><br />
+{/foreach}
+</div>

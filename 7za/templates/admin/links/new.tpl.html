@@ -1,0 +1,44 @@
+<script language="JavaScript" type="text/javascript">
+<!--
+ {literal}
+ function submitForm() {
+     var frm = document.frm;
+     if (frm.title.value == "") { alert('Укажите заголовок новости'); frm.title.focus(); return false; }
+     
+     return true;
+ }
+ {/literal}
+//-->
+</script>
+<p class="header" align="center">Добавление ссылки</p>
+<form action="index.php?mode=save_new" method="POST" enctype="multipart/form-data" name="frm" onSubmit="return submitForm();">
+<table width="80%" border="0" cellpadding="2" cellspacing="0" align="center">
+ <tr>
+  <td align="right" width="50%">Язык ссылки:</td>
+  <td width="50%"><select name="language" class="input">
+    <option value="rus" selected>Русский</option>
+    <option value="eng">Английский</option>
+   </select>
+  </td>
+ </tr>
+ <tr>
+  <td align="right" width="50%">Заголовок:</td>
+  <td width="50%"><input type="text" name="title" class="input"></td>
+ </tr>
+ <tr>
+  <td align="right">Адрес:</td>
+  <td><input type="text" name="href" class="input" value="http://"></td>
+ </tr>
+ <tr>
+  <td align="right" width="50%">Описание:</td>
+  <td width="50%"><textarea name="description" style="width:48%" rows="3"></textarea></td>
+ </tr> 
+ <tr>
+  <td align="right">Показывать ссылку:</td>
+  <td><input type="checkbox" name="shown" value="1" checked></td>
+ </tr>
+ <tr>
+  <td colspan="2" align="center"><br><input type="submit" class="button" value="Сохранить">&nbsp; <input type="button" onClick="location.href='index.php'; return false;" class="button" value="Отмена"></td>
+ </tr>
+</table>
+</form>

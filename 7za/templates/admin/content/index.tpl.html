@@ -1,0 +1,42 @@
+<p class="header" align="center">Редактирование страниц сайта</p>
+<table width="95%" border="0" cellpadding="3" cellspacing="0" align="center">
+ <tr>
+  <td align="right">
+   {if $smarty.session.language!="rus"}<a href="index.php?language=rus">Русский</a>{else}<strong>Русский</strong>{/if}&nbsp;
+   {if $smarty.session.language!="eng"}<a href="index.php?language=eng">Английский</a>{else}<strong>Английский</strong>{/if}
+  </td>
+ </tr>
+ <tr>
+  <td align="right"><a href="index.php?mode=new"><img src="{$URL_IMAGE}admin/add.gif" border="0" align="absmiddle">&nbsp;Добавить новую страницу</a></td>
+ </tr>
+</table>
+
+<table width="95%" border="0" cellpadding="3" cellspacing="1" align="center">
+ <tr>
+  <td class="tblHeader">ID</td>
+  <td class="tblHeader">Название страницы</td>
+  <td class="tblHeader">Дата</td>
+  <td class="tblHeader">Язык</td>
+  <td class="tblHeader">Показывать</td>
+  <td class="tblHeader">Позиция</td>
+  <td class="tblHeader" width="90">&nbsp;</td>
+ </tr>
+ {foreach name="pages" from=$pages item="item"}
+ <tr class="tblRow{if $smarty.foreach.pages.iteration is odd}1{else}2{/if}">
+  <td align="center">{$item.page_id}</td>
+  <td align="center"><a href="index.php?mode=edit&id={$item.page_id}">{$item.page_name}</a></td>
+  <td align="center">{$item.added_time|date_format:"%d.%m.%Y %H:%M"}</td>
+  <td align="center">{$item.language}</td>
+  <td align="center">{if $item.shown}да{else}нет{/if}</td>
+  <td align="center">
+   <a href="index.php?mode=move_up&id={$item.page_id}"><img src="{$URL_IMAGE}admin/up.gif" border="0" alt="Вверх"></a>&nbsp;
+   <a href="index.php?mode=move_down&id={$item.page_id}"><img src="{$URL_IMAGE}admin/down.gif" border="0" alt="Вниз"></a>
+  </td>
+  <td align="center">
+   <a href="index.php?mode=edit&id={$item.page_id}"><img src="{$URL_IMAGE}admin/edit.gif" border="0" align="absmiddle" alt="Редактировать"></a>&nbsp;
+   <a href="index.php?mode=hide&id={$item.page_id}"><img src="{$URL_IMAGE}admin/show.gif" border="0" align="absmiddle" alt="Скрыть/показать"></a>&nbsp;
+   <a href="#" onClick="if (confirm('Вы действительно хотите удалить эту страницу?\n{$item.page_name}')) location.href='index.php?mode=delete&id={$item.page_id}';"><img src="{$URL_IMAGE}admin/delete.gif" border="0" align="absmiddle" alt="Удалить"></a>
+  </td>
+ </tr>
+ {/foreach}
+</table>

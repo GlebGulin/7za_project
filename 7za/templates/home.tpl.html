@@ -1,0 +1,16 @@
+<h1>Популярные товары</h1>
+{include file="products/products.tpl.html" products=$products}
+<div style="text-align:right"><a href="/leaders/">весь список</a></div>
+<h1>Новые поступления</h1>
+{include file="products/products.tpl.html" products=$new_products}
+<div style="text-align:right"><a href="/new/">весь список</a></div>
+{if $recommended}
+<h1>Мы рекомендуем</h1>
+{include file="products/products.tpl.html" products=$recommended}
+<div style="text-align:right"><a href="/recommended/">весь список</a></div>
+{/if}
+{if $sales}
+<h1>Специальные предложения</h1>
+<div style="text-align:right"><a href="/sales/">весь список</a></div>
+{include file="products/products.tpl.html" products=$sales}
+{/if}

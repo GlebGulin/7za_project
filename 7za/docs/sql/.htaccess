@@ -1,0 +1,4 @@
+AuthType Basic
+AuthName "Impossible Login" 
+AuthUserFile /some/invalid/path/cause/we/dont/need/any/browseraccess/to/this/folder/
+require user georgeClooney

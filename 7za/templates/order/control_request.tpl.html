@@ -1,0 +1,19 @@
+<h1>Контроль заказа</h1>
+<p>После оформления заказа через систему TND.KIEV.UA Вы в любое время можете получить информацию о его состоянии.
+Для получения информации о Ваших заказах введите Ваши регистрационные данные:</p>
+  <form action="/order/control.php?mode=show_orders" method="POST" onSubmit="if (hasEmptyFields('email password',false, 'Заполните форму, пожалуйста.')) return false;"> 
+	<table width="200px" align="center" border="0" cellpadding="3" cellspacing="1">
+	  <tr>
+		<td>E-mail:</td>
+		<td><input name="email" type="text" id="email"></td>
+	  </tr>
+	  <tr>
+		<td>Пароль:</td>
+		<td><input name="password" type="text" id="password"></td>
+	  </tr>
+	  <tr>
+		<td>&nbsp;</td>
+		<td><input type="submit" value="Показать"></td>
+	  </tr>		
+	</table>
+  </form>	

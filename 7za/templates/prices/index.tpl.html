@@ -1,0 +1,7 @@
+<h1>{$L_PRICES}</h1>
+<p>{$L_CHOOSE_THE_PRICE_FOR_DOWNLOAD}</p>
+<ul class="green">
+{foreach name="prices" from=$prices item=item}
+ <li><a href="{$item.file.file_url}">{file_icon file_name=$item.file.file_name} {$item.title}</a>
+{/foreach}
+</ul>

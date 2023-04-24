@@ -1,0 +1,61 @@
+.cal_tbl {
+    border: 1px solid #C51525;
+}
+.cal_wd, .cal_title {
+    background-color: #52B8D9;
+    color: #FFFFFF;
+   	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+}
+.cal_title A {
+	color: #FFFFFF;
+	text-decoration: none;
+}
+.cal_title A:hover {
+	color: #FFFFFF;
+	text-decoration: none;
+}
+.cal_days {
+    color: #555555;
+	font-size: 11px;
+    background-color: #F3F3F3;
+}
+.cal_weekend {
+    color: #C51525;
+}
+.cal_hol {
+    background-color: #C51525;
+    font-weight: bold;
+}
+.cal_hol A {
+	color: #FFFFFF;
+	text-decoration: none;
+}
+.cal_hol A:hover {
+	color: #FFFFFF;
+	text-decoration: underline;
+}
+.cal_hol_sm {
+    background-color: #FFD0D0;
+    font-weight: bold;
+}
+.cal_hol_sm A {
+	color: #C51525;
+	text-decoration: none;
+}
+.cal_hol_sm A:hover {
+	color: #C51525;
+	text-decoration: underline;
+}
+.cal_today {
+    border: 1px solid #52B8D9;
+    color: #000000;
+}
+.u_cal_today {
+    padding-top: 10px;
+    font-size: 11px;
+}
+.cal_next_hol {
+    padding: 10px;
+    font-size: 11px;
+}

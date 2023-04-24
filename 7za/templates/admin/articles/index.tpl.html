@@ -1,0 +1,33 @@
+ <h3>Статьи категории "{$category.name}"</h3>
+<div align="right"><a href="index.php?mode=add&id={$category.category_id}"><img src="{$URL_IMAGE}admin/page_add.gif" border="0" align="absmiddle"> Добавить статью</a></div>
+  <table width="100%"  border="0" cellspacing="1" cellpadding="2">
+    <tr>
+      <td width="40" class="tableHeader">ID</td>
+      <td class="tableHeader">Заголовок</td>
+      <td class="tableHeader">Дата</td>
+      <td class="tableHeader">Показывать</td>
+      <td width="120" class="tableHeader">&nbsp;</td>
+    </tr>
+
+    {foreach name=articles from=$articles item=item}
+    <tr class="tableRow{cycle values=1,2}">
+      <td align="center">{$item.article_id}</td>
+      <td>{$item.title}</td>
+      <td align="center">{$item.added_time|date_format:"%d.%m.%Y"}</td>
+      <td align="center">
+      	<a href="index.php?mode=visible&id={$item.article_id}">
+       		<img src="{$URL_IMAGE}admin/{if $item.visible}allowed{else}restricted{/if}.gif" alt="Показать/скрыть" title="Показать/скрыть" width="24" height="24" border="0" align="absmiddle">
+      	</a>
+      </td>
+      <td align="center" nowrap>
+      	<a href="index.php?mode=edit&id={$item.article_id}" title="Редактировать"><img src="{$URL_IMAGE}admin/page_edit.gif" width="24" height="24" border="0" alt="Редактировать"></a>
+      	<a href="#" onClick="if (confirm('Вы действительно хотите удалить эту статью?\n{$item.title|htmlspecialchars}')) location.href='index.php?mode=delete&id={$item.article_id}';" title="Удалить"><img src="{$URL_IMAGE}admin/page_delete.gif" width="24" height="24" border="0" alt="Удалить"></a>
+      </td>
+    </tr>
+    {foreachelse}
+    <tr>
+     <td colspan="5" align="center" class="tableRow1">Нет статей</td>
+    </tr>
+    {/foreach}
+
+  </table>

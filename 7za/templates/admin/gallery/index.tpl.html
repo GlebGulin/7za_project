@@ -1,0 +1,26 @@
+<p class="header" align="center">Редактирование фотогалерей</p>
+{if $warning}<div align="center" class="warning">{$warning}</div>{/if}
+
+<table width="95%" border="0" cellpadding="3" cellspacing="0" align="center">
+ <tr>
+  <td align="right"><a href="index.php?mode=new"><img src="{$URL_IMAGE}admin/add.gif" border="0" align="absmiddle">&nbsp;Создать новую галерею</a></td>
+ </tr>
+</table>
+
+<table width="95%" border="0" cellpadding="3" cellspacing="1" bgcolor="#F0F0F0" align="center">
+ <tr>
+  <td class="tblHeader">ID</td>
+  <td class="tblHeader">Название галереи</td>
+  <td class="tblHeader" width="80">&nbsp;</td>
+ </tr>
+ {foreach name="galleries" from=$galleries item="item"}
+ <tr class="tblRow{if $smarty.foreach.galleries.iteration is odd}1{else}2{/if}">
+  <td align="center">{$item.gallery_id}</td>
+  <td align="center"><a href="index.php?mode=edit&id={$item.gallery_id}">{$item.gallery_name_rus}</a></td>
+  <td align="center">
+   <a href="index.php?mode=edit&id={$item.gallery_id}"><img src="{$URL_IMAGE}admin/edit.gif" border="0" align="absmiddle" alt="Редактировать"></a>&nbsp;
+   <a href="#" onClick="if (confirm('Вы уверены?')) location.href='index.php?mode=delete&id={$item.gallery_id}'; return false;"><img src="{$URL_IMAGE}admin/delete.gif" border="0" align="absmiddle" alt="Удалить"></a>
+  </td>
+ </tr>
+ {/foreach}
+</table>

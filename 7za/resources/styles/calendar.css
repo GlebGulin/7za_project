@@ -1,0 +1,123 @@
+/* Entire table */
+.cal_table {
+    border: solid 1px black;
+    background : #FFFFE0;
+    font-size:11px;
+    font-family : Arial, Helvetica, sans-serif;
+    text-align: center;
+}
+/* The cell with month */
+.cal_month {
+
+}
+/* Next and previous monthes navigators */
+.cal_nav_back_cell {
+
+}
+.cal_days_cells {
+    color: white;
+    font-weight : bolder;
+    font-size:11px;
+    font-family : Arial, Helvetica, sans-serif;
+    text-align: center;
+}
+/* The line with days of the week */
+.cal_days_row {
+    background : #a2a2a2;
+    color: white;
+    font-weight : bolder;
+}
+/* Cells with week numbers */
+.cal_cell_week {
+    background : #DCDCDC;
+}
+/* Days of previous month */
+.cal_cell_previous_month {
+    background : #eeeeee;
+}
+/* Days of next month */
+.cal_cell_next_month {
+    background : #eeeeee;
+}
+/* Days of current month */
+.cal_cell_current_month {
+    background : #fdeca8;
+}
+/* Status bar */
+.cal_row_status_bar {
+    background : #d5cefb;
+    font-size:11px;
+    font-family : Arial, Helvetica, sans-serif;
+    text-align: center;
+}
+/* Cells of selected week */
+.cal_cell_selected_week {
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;     
+}
+/* Row of selected week */
+.cal_row_selected_week {
+    background : #d6f3d7;
+}
+/* Cell of selected day */
+.cal_cell_selected_day {
+    background : #ffAe9e;
+}
+/* Cell of current day */
+.cal_cell_current_day {
+    background : #ff5e5e;
+        border: 1px solid black;
+}
+/* Month navigation link */
+a.cal_link_nav {
+    font-size: 10px;
+    color: #9f0000;
+    text-decoration: underline;
+    font-family: Arial, Helvetica, Verdana, Geneva, sans-serif;
+}
+a.cal_link_nav:hover {
+    font-size: 10px;
+    color: #9f0000;
+    text-decoration: none;
+    font-family: Arial, Helvetica, Verdana, Geneva, sans-serif;
+    background : #d5cefb;
+}
+/* Day link */
+a.cal_show_day {
+    font-size: 10px;
+    color: #4b4b4b;
+    text-decoration: underline;
+    font-family: Arial, Helvetica, Verdana, Geneva, sans-serif;
+}
+a.cal_show_day:hover {
+    font-size: 10px;
+    color: #4b4b4b;
+    text-decoration: none;
+    font-family: Arial, Helvetica, Verdana, Geneva, sans-serif;
+}
+/* Month link */
+a.cal_show_month {
+    font-size: 10px;
+    color: #4b4b4b;
+    text-decoration: underline;
+    font-family: Arial, Helvetica, Verdana, Geneva, sans-serif;
+}
+a.cal_show_month:hover {
+    font-size: 10px;
+    color: #4b4b4b;
+    text-decoration: none;
+    font-family: Arial, Helvetica, Verdana, Geneva, sans-serif;
+}
+/* Week link */
+a.cal_show_week {
+    font-size: 10px;
+    color: #4b4b4b;
+    text-decoration: underline;
+    font-family: Arial, Helvetica, Verdana, Geneva, sans-serif;
+}
+a.cal_show_week:hover {
+    font-size: 10px;
+    color: #4b4b4b;
+    text-decoration: none;
+    font-family: Arial, Helvetica, Verdana, Geneva, sans-serif;
+}

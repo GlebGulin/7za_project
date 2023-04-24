@@ -1,0 +1,26 @@
+<table width="100%" border="0" cellpadding="3" cellspacing="1">
+ <tr class="tableHeader">
+  <td>Название продукта</td>
+  <td>Цена, грн</td>
+  <td>Наличие</td>
+ </tr>
+ {foreach name=cats from=$categories item=cat}
+ <tr>
+  <td colspan="3" class="tableHeaderAlt">{$cat.category_name}</td>
+ </tr>
+ {foreach name=subcats from=$cat.subcategories item=subcat}
+ <tr>
+  <td colspan="3" style="padding-left: 15px;"><a href="/subcat/{$subcat.subcategory_id}/{$subcat.subcategory_name|sefu_prepare}.html"><strong>{$subcat.subcategory_name}</strong></a></td>
+ </tr>
+ {if $subcat.products}
+ {foreach name=prod from=$subcat.products item=item}
+ <tr class="row{cycle values=",_grey"}">
+  <td style="padding-left: 25px;"><a href="/product/{$item.product_id}/{if $item.sefu_title}{$item.sefu_title}.html{/if}">{$item.product_name}</a></td>
+  <td align="center">{$item.price}</td>
+  <td align="center">{if !$item.absent}есть{else}нет{/if}</td>
+ </tr>
+ {/foreach}
+ {/if}
+ {/foreach}
+ {/foreach}
+</table>

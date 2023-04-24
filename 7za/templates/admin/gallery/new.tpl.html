@@ -1,0 +1,18 @@
+<p class="header" align="center">Создание новой фотогалереи</p>
+<form action="index.php?mode=save_new" method="POST" name="galleryfrm">
+<table width="95%" align="center" cellpadding="3" cellspacing="0" border="0">
+ <tr>
+  <td width="50%" align="right">Название галереи [rus]:</td>
+  <td width="50%"><input type="text" name="gallery_name_rus" id="gallery_name_rus" class="input"></td>
+ </tr>
+ <tr>
+  <td width="50%" align="right">Название галереи [eng]:</td>
+  <td width="50%"><input type="text" name="gallery_name_eng" id="gallery_name_eng" class="input"></td>
+ </tr>
+ <tr>
+  <td colspan="2" align="center"><br><input type="submit" value="Сохранить" class="button">&nbsp;
+   <input type="button" value="Отмена" onClick="location.href='index.php';" class="button">
+  </td>
+ </tr>
+</table>
+</form>

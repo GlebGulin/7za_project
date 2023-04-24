@@ -1,0 +1,396 @@
+<?php
+
+require_once( MODEL_DIR . "Cart.class.php" );
+
+class Orders extends Cart
+{
+/****************************************************************************
+ *                      Member variables                                    *
+ ****************************************************************************/
+
+    var $surname						= "";
+    var $firstname						= "";
+    var $lastname						= "";
+    var $password						= "";
+    var $email							= "";
+    var $phone							= "";
+	var $fax							= "";
+	var $ind							= "";
+	var $region							= "";
+	var $district						= "";
+	var $city_id						= 0;
+    var $city                           = "";
+	var $street							= "";
+	var $number							= "";
+	var $building						= "";
+	var $office							= "";
+	var $entrance						= "";
+	var $code							= "";
+	var $floor							= "";
+	var $comment						= "";
+	var $status							= 0;
+	var $added_time						= "";
+	var $status_id						= "";
+	var $company						= "";
+	var $legal_address					= "";
+	var $postal_address					= "";
+	var $inn							= "";
+	var $kpp							= "";
+	var $okpo							= "";
+	var $bank_name						= "";
+	var $settl_account      			= "";
+	var $corr_account   			    = "";
+    var $bik			             	= "";
+    var $products_ser                   = "";
+    var $ssnumber                       = 0;
+
+
+	var $order_id						= 0;
+	var $product_id						= 0;
+	var $product_qnt					= 0;
+	var $product_price					= 0;
+	var $product_discount				= 0;
+
+	var $subject_admin           		= "Онлайн-заказ из магазина '7Za'";
+	var $subject_user            		= "Онлайн-заказ на сайте '7Za'";
+
+	var $orders_per_page            	= 50;
+
+
+/****************************************************************************
+ *                      Initialization                                      *
+ ****************************************************************************/
+
+    /**
+     * constructor
+     */
+    function Orders()
+    {
+        parent::wrapper();
+    }
+
+/****************************************************************************
+ *                      Developer's methods area                            *
+ ****************************************************************************/
+
+	/**
+	 * Return orders for user control
+	 *
+	 * @return array
+	 */
+	function getControlOrders()
+	{
+		$orders = Orders::runQuery( 9 , "getIndexArray", __FILE__ . ":" . __LINE__);
+		if(count($orders))
+			foreach( $orders as $key => $value )
+			{
+				$orders[$key] = $this->getOrder( $value['order_id'] );
+				if ( $orders[$key]['status_id'] == 4 )
+					unset( $orders[$key] );
+			}
+		return $orders;
+	}
+
+	/**
+	 * Update order status
+	 *
+	 * @param int $id
+	 */
+	function nextStatusOrder( $id )
+	{
+		$this->order_id = $id;
+		Orders::runQuery( 8 , "none", __FILE__ . ":" . __LINE__);
+	}
+
+	/**
+	 * Update order status to 'deleted'
+	 *
+	 * @param int $id
+	 */
+	function deleteOrder( $id )
+	{
+		$this->order_id = $id;
+		$this->status_id = 4;
+		Orders::runQuery( 6 , "none", __FILE__ . ":" . __LINE__);
+	}
+
+	/**
+	 * Returns all active orders for admin
+	 *
+	 * @return array
+	 */
+	function getCurrentOrders()
+	{
+		$orders = Orders::runQuery( 5 , "getIndexArray", __FILE__ . ":" . __LINE__);
+		if(count($orders))
+			foreach( $orders as $key => $value )
+				$orders[$key] = $this->getOrder( $value['order_id'] );
+		return $orders;
+	}
+
+	/**
+	 * Returns all archive orders for admin
+	 *
+	 * @return unknown
+	 */
+	function getArchiveOrders()
+	{
+		$num_orders = Orders::runQuery( 7 , "getNumRows", __FILE__ . ":" . __LINE__);
+    	$this->initSplitMenu( "" , $this->orders_per_page, $num_orders );
+    	$orders = Orders::runQuery( 7 , "getIndexArray", __FILE__ . ":" . __LINE__);
+    	if(count($orders))
+    		foreach( $orders as $key => $value )
+				$orders[$key] = $this->getOrder( $value['order_id'] );
+    	return $orders;
+	}
+
+	/**
+	 * Check order for complete
+	 *
+	 * @return array
+	 */
+    function checkOrder()
+    {
+        $empty = array();
+        if ( !$this->surname )      $empty['surname'] = 1;
+        if ( !$this->firstname )    $empty['firstname'] = 1;
+        if ( !$this->email )        $empty['email'] = 1;
+        if ( !$this->phone )        $empty['phone'] = 1;
+        if ( !$this->street )       $empty['street'] = 1;
+        if ( !$this->city )         $empty['city'] = 1;
+        if ( !$this->number )       $empty['number'] = 1;
+        return $empty;
+    }
+
+	/**
+	 * Add order to DB
+	 *
+	 * @return int
+	 */
+	function addOrder()
+	{
+		$this->order_id = $this->getNextAutoIncrement( TABLE_PREFIX . "orders" );
+		$this->added_time = date("Y-m-d H:i:s");
+
+        if ( isset($_SESSION['ssnumber']) && $_SESSION['ssnumber'] > 0 )
+            $this->ssnumber = $_SESSION['ssnumber'];
+
+		Orders::runQuery( 1, "none", __FILE__ . ":" . __LINE__ );
+		$cart = $this->getCart();
+
+		$this->products_ser = $this->decodeRequestValue($this->products_ser);
+
+		// protection if session failed during filling the contact form
+        if ( !$cart )
+        {
+            if ( !empty($this->products_ser) )
+                $cart = unserialize($this->products_ser);
+        }
+
+    	foreach ( $cart as $product_id => $cnt )
+		{
+			$product = $this->getProductById($product_id);
+			$this->product_id = $product['product_id'];
+			$this->product_qnt = $cnt;
+			if( $product['discount_start'] <= date("Y-m-d") && $product['discount_finish'] >= date("Y-m-d") && $product['discount'] > 0 )
+				$this->product_price = $product['price'] - $product['price']*$product['discount']/100;
+			else
+				$this->product_price = $product['price'];
+			Orders::runQuery( 2, "none", __FILE__ . ":" . __LINE__ );
+		}
+
+		return $this->order_id;
+	}
+
+	/**
+	 * Returns order from DB by its id
+	 *
+	 * @param int $order_id
+	 * @return array
+	 */
+	function getOrder( $order_id )
+	{
+		$this->order_id = $order_id;
+		$order = Orders::runQuery( 4 , "getArray", __FILE__ . ":" . __LINE__);
+
+		$order['items'] = array();
+		$order['order_summ'] = 0;
+		$order['order_qnt'] = 0;
+
+		$items = Orders::runQuery( 3 , "getIndexArray", __FILE__ . ":" . __LINE__);
+		if( count($items) )
+	    	foreach ( $items as $key => $value )
+			{
+				$item = $value;
+				$item['product'] = $this->getProductById( $value['product_id'] );
+				$item['product_summ'] = $value['product_price']	* $value['product_qnt'];
+				$order['order_summ'] += $item['product_summ'];
+				$order['order_qnt'] += $value['product_qnt'];
+				$order['items'][] = $item;
+			}
+
+		if ( $order['order_summ'] < COST_THRESHOLD )
+			$order['order_delivery'] = COST_DELIVERY;
+		else
+			$order['order_delivery'] = 0;
+
+		$order['order_common_summ'] = $order['order_summ'] + $order['order_delivery'];
+
+
+		return $order;
+	}
+
+	/**
+	 * Send order mail to admin and user
+	 *
+	 * @param int $order_id
+	 */
+    function sendOrder( $order_id )
+    {
+		$order = $this->getOrder( $order_id );
+		$this->tpl->assign('order',$order);
+
+		$mailer = $GLOBALS['smtp_mail'];
+		$headers['From'] = sprintf("\"=?windows-1251?B?%s?=\" <%s>", base64_encode('Интернет магазин 7ZA'), FROM_EMAIL);
+		$recipients = ADMIN_EMAIL;
+		$headers['To'] = '<' . implode('>, <', preg_split('/,\s*/', $recipients)) . '>';
+		if ($this->email) $headers['Reply-To'] = '<' . $this->email . '>';
+		$headers['Subject'] = $this->subject;
+		if (preg_match("/[\x80-\xFF]/", $headers['Subject'])) $headers['Subject'] = sprintf("=?windows-1251?B?%s?=", base64_encode($headers['Subject']));
+		$headers['MIME-Version'] = '1.0';
+		$headers['Content-Type'] = 'text/html; charset="windows-1251"';
+		$headers['Content-Transfer-Encoding'] = '8bit';
+		$body = $this->tpl->fetch("mails/order_to_admin.tpl.html");
+		$send = $mailer->send($recipients, $headers, $body);
+
+/*
+		$mailer =& $this->getClassOf("utils.mail.MailLauncher");
+        $mailer->init( ADMIN_EMAIL, $this->subject_admin, $this->email ? $this->email : FROM_EMAIL);
+        $mailer->setCharset("windows-1251");
+        $mailer->setBody($this->tpl->fetch("mails/order_to_admin.tpl.html"));
+        $mailer->send();
+*/
+
+//		if (!PEAR::isError($send)) {
+//			if (($this->email) and (preg_match('/^\s*[a-z_\-\.\+]\@([a-z\d\-]+\.)+[a-z]{2,}\s*$/i', $this->email))) {}
+			if ($this->email) {
+				$recipients = trim($this->email);
+				$headers['To'] = '<'.implode('>, <', preg_split('/,\s*/', $recipients)).'>';
+				if (isset($headers['Reply-To'])) unset($headers['Reply-To']);
+				$headers['Subject'] = $this->subject_user;
+				if (preg_match("/[\x80-\xFF]/", $headers['Subject'])) $headers['Subject'] = sprintf("=?windows-1251?B?%s?=", base64_encode($headers['Subject']));
+				$body = $this->tpl->fetch("mails/order_to_user.tpl.html");
+				$send = $mailer->send($recipients, $headers, $body);
+			}
+//		}
+
+		if (!PEAR::isError($send)) {
+			$this->emptyCart();
+		}
+
+/*
+		$mailer =& $this->getClassOf("utils.mail.MailLauncher");
+        $mailer->init( $this->email , $this->subject_user, FROM_EMAIL );
+        //$mailer->init( $this->email , $this->subject_user, "admin@".$_SERVER['HTTP_HOST'] );
+        $mailer->setCharset("windows-1251");
+        $mailer->setBody($this->tpl->fetch("mails/order_to_user.tpl.html"));
+        $mailer->send();
+        $this->emptyCart();
+*/
+    }
+
+    /**
+     * Returns all cities from DB
+     *
+     * @return array
+     */
+    function getCities()
+    {
+    	return Orders::runQuery( 0 , "getIndexArray", __FILE__ . ":" . __LINE__);
+    }
+
+    /**
+     * Returns navigation path for control order page
+     *
+     * @return array
+     */
+    function getNavPathForControl()
+    {
+		$Pages = $this->getClassOf("Pages");
+        $main_page = $Pages->getPageById( 1 );
+        $path[0]['title']   = $main_page['title'];
+    	$path[0]['page_id'] = $main_page['page_id'];
+    	$path[0]['link']    = URL_ROOT ;
+        $path[1]['title']   = "Контроль заказа";
+    	$path[1]['page_id'] = "0";
+    	$path[1]['link']    = "#";
+    	return $path;
+    }
+
+    /**
+     * Returns navigation path for order page
+     *
+     * @return array
+     */
+    function getNavPathForOrder()
+    {
+		$Pages = $this->getClassOf("Pages");
+        $main_page = $Pages->getPageById( 1 );
+        $path[0]['title']   = $main_page['title'];
+    	$path[0]['page_id'] = $main_page['page_id'];
+    	$path[0]['link']    = URL_ROOT ;
+        $path[1]['title']   = "Оформить заказ";
+    	$path[1]['page_id'] = "0";
+    	$path[1]['link']    = "#";
+    	return $path;
+    }
+
+    /**
+     * Returns navigation path for cart page
+     *
+     * @return array
+     */
+    function getNavPathForCart()
+    {
+		$Pages = $this->getClassOf("Pages");
+        $main_page = $Pages->getPageById( 1 );
+        $path[0]['title']   = $main_page['title'];
+    	$path[0]['page_id'] = $main_page['page_id'];
+    	$path[0]['link']    = URL_ROOT ;
+        $path[1]['title']   = "Корзина";
+    	$path[1]['page_id'] = "0";
+    	$path[1]['link']    = "#";
+    	return $path;
+    }
+
+/****************************************************************************
+ *                      Helper functions                                    *
+ ****************************************************************************/
+
+    /**
+     * wrapper around the runQuery method in dbHandler.class.php
+     *
+     * requires the appropiate query file for this class and
+     * passes the query to dbHandler::runQuery()
+     * returns an array or a string in accordance to the wanted result
+     * The requirement for query file: it must have filename
+     * <classname>.sql.php
+     *
+     * @author  Ralf Kramer, Alex Koshel
+     * @param   int  query_id ( array index of the query within the
+     *                          required query file )
+     * @param   string result ( specifies the type of the expected
+     *          result set
+     *          e.g. "getArray", "getIndexArray", "getSingleValue" etc. )
+     * @param   msq_id ( a hint that is thrown by the system when an error occurs )
+     *
+     * @return  mixed
+     */
+    function runQuery( $query_id, $result, $msg_id ) {
+        $queryFName = str_replace( ".class.php", ".sql.php", __FILE__ );
+        require( $queryFName );
+        return $this->core->runQuery( $query[$query_id], $result, $msg_id );
+    }
+
+}
+?>

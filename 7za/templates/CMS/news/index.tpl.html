@@ -1,0 +1,8 @@
+{foreach from=$news item=n}
+<p><span class="date">{$n.date|date_format:"%d.%m.%Y"}</span><br />
+  <a href="/news/{$n.news_id}/" class="item_title">{$n.title}</a></p>
+<p>{$n.text|strip_tags|truncate:200}</p>
+<p><a href="/news/{$n.news_id}/" class="more">подробнее</a></p>
+{/foreach}
+
+{*include file="cms/news/subscribe.tpl.html"*}

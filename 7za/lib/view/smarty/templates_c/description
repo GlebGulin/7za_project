@@ -1,0 +1,2 @@
+This folder is used by Smarty template engine for compiled templates.
+Make sure this folder is writable in your system.

@@ -1,0 +1,11 @@
+<p class="header" align="center">Редактирование фото</p>
+
+<form action="index.php?mode=save_photo&id={$photo.photo_id}&gallery_id={$photo.gallery_id}" method="POST">
+<div align="center">
+ {mm_image_preview file_id=$photo.image_file_id}<br><br>
+ Комментарий к снимку [rus]:<br><textarea name="photo_descr_rus" rows="6" class="input" style="width: 400px;">{$photo.photo_descr_rus}</textarea><br><br>
+ Комментарий к снимку [eng]:<br><textarea name="photo_descr_eng" rows="6" class="input" style="width: 400px;">{$photo.photo_descr_eng}</textarea><br><br>
+ <input type="submit" value="Сохранить" class="button">&nbsp;
+ <input type="button" value="Отмена" class="button" onClick="location.href='index.php?mode=edit&id={$photo.gallery_id}';">
+</div>
+</form>

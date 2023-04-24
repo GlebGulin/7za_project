@@ -1,0 +1,43 @@
+<p class="header" align="center">Содержимое фотогалереи<br>"{$gallery.gallery_name_rus}"</p>
+{if $warning}<div align="center" class="warning">{$warning}</div>{/if}
+
+<form action="index.php?mode=save" method="POST">
+<input type="hidden" name="gallery_id" value="{$gallery.gallery_id}">
+<div align="center">
+ Название галереи [rus]: <input type="text" name="gallery_name_rus" value="{$gallery.gallery_name_rus|replace:'"':"&quot;"}" class="input"><br>
+ Название галереи [eng]: <input type="text" name="gallery_name_eng" value="{$gallery.gallery_name_eng|replace:'"':"&quot;"}" class="input"><br><br>
+ <input type="submit" value="Сохранить" class="button"> &nbsp;<button onClick="location.href='index.php'" class="button">Отмена</button>
+</div>
+</form>
+<script language="JavaScript" src="{$URL_SCRIPT}images.js"></script>
+<table width="95%" border="0" cellpadding="3" cellspacing="1" bgcolor="#F0F0F0" align="center">
+ <tr>
+  <td class="tblHeader">ID</td>
+  <td class="tblHeader">Комментарий снимка</td>
+  <td class="tblHeader">Сохранен</td>
+  <td class="tblHeader" width="80">&nbsp;</td>
+ </tr>
+ {foreach name="photos" from=$photos item="item"}
+ <tr class="tblRow{if $smarty.foreach.photos.iteration is odd}1{else}2{/if}">
+  <td align="center">{$item.photo_id}</td>
+  <td>{$item.photo_descr_rus|nl2br}</td>
+  <td align="center">{$item.added_time|date_format:"%d.%m.%Y %H:%M"}</td>
+  <td align="center">
+   {mm_pictogram file_id=$item.image_file_id}&nbsp;
+   <a href="index.php?mode=edit_photo&id={$item.photo_id}"><img src="{$URL_IMAGE}admin/edit.gif" border="0" align="absmiddle" alt="Редактировать" title="Редактировать"></a>&nbsp;
+   <a href="#" onClick="if (confirm('Вы действительно хотите удалить это фото?')) location.href='index.php?mode=delete_photo&id={$item.photo_id}'; return false;"><img src="{$URL_IMAGE}admin/delete.gif" border="0" align="absmiddle" alt="Удалить"></a>
+  </td>
+ </tr>
+ {/foreach}
+</table>
+
+<form action="index.php?mode=save_new_photo" method="POST" enctype="multipart/form-data">
+<input type="hidden" name="gallery_id" value="{$gallery.gallery_id}">
+<p class="header" align="center">Добавление снимка</p>
+<div align="center">
+ Фотография (.jpg): <input type="file" name="image_file" class="input"><br><br>
+ Комментарий к снимку [rus]:<br><textarea name="photo_descr_rus" rows="6" class="input" style="width: 400px;"></textarea><br><br>
+ Комментарий к снимку [eng]:<br><textarea name="photo_descr_eng" rows="6" class="input" style="width: 400px;"></textarea><br><br>
+ <input type="submit" value="Сохранить" class="button">
+</div>
+</form>

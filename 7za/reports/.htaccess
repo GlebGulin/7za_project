@@ -1,0 +1,6 @@
+AuthName                "7za"
+AuthType                Basic
+AuthUserFile            /usr/local/www/7za/passwd.apache
+<LIMIT GET POST>
+require                 valid-user
+</LIMIT>

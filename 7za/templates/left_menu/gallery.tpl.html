@@ -1,0 +1,14 @@
+{foreach name="menu" from=$galleries item=item}
+<tr>
+{if $item.gallery_id == $smarty.get.id}
+  <td width="35" height="30"><div align="center"><img src="{$URL_IMAGE}menu_arr.gif" width="20" height="18"></div></td>
+  <td width="194"><span class="menu_active">{if $language=="rus"}{$item.gallery_name_rus}{/if}{if $language=="eng"}{$item.gallery_name_eng}{/if}</span></td>
+{else}
+  <td height="30" width="35">&nbsp;</td>
+  <td height="30"><a href="index.php?id={$item.gallery_id}" class="menu">{if $language=="rus"}{$item.gallery_name_rus}{/if}{if $language=="eng"}{$item.gallery_name_eng}{/if}</a></td>
+{/if}
+</tr>
+<tr>
+  <td colspan="2" bgcolor="#35457a"><img src="{$URL_IMAGE}spcr.gif" width="1" height="1"></td>
+</tr>
+{/foreach}

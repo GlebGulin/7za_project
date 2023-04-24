@@ -1,0 +1,7 @@
+AuthType Basic
+AuthName "Restricted Area" 
+AuthUserFile "/srv/7za/www/html/lib/htpasswd"
+<Limit GET>
+#require user admin
+require valid-user
+</Limit>

@@ -1,0 +1,40 @@
+<h3>Результаты поиска</h3>
+
+<form action="index.php?mode=search" method="POST" onSubmit="if (hasEmptyFields('keyword', false, 'Введите слово для поиска')) return false;">
+<table width="100%" border="0" cellpadding="3" cellspacing="1">
+ <tr>
+  <td class="tableHeader" colspan="2">Поиск товара</td>
+ </tr>
+ <tr>
+  <td class="tableHeaderLeft">Слово для поиска:</td>
+  <td class="tableRow1"><input type="text" name="keyword" id="keyword" value="{$keyword}" class="input">
+   <input type="submit" value="Найти" class="button">
+  </td>
+ </tr>
+</table>
+</form>
+
+<table width="100%" border="0" cellpadding="3" cellspacing="1">
+ <tr>
+  <td class="tableHeader">ID</td>
+  <td class="tableHeader">Название продукта</td>
+  <td class="tableHeader">Цена</td>
+  <td class="tableHeader" width="120">Добавлен</td>
+  <td class="tableHeader">Показывать</td>
+  <td class="tableHeader">В наличии</td>
+ </tr>
+ {foreach name="products" from=$products item=item}
+ <tr class="tableRow{cycle values="1,2"}">
+  <td align="center">{$item.product_id}</td>
+  <td align="center"><a href="index.php?mode=edit_product&product_id={$item.product_id}">{$item.product_name}</a></td>
+  <td align="center">{$item.price}</td>
+  <td align="center">{$item.added_time}</td>
+  <td align="center">{if $item.shown == 1}да{else}нет{/if}</td>
+  <td align="center">{if $item.absent == 1}нет{else}есть{/if}</td>
+ </tr>
+ {foreachelse}
+ <tr>
+  <td align="center" colspan="6">Ничего не найдено</td>
+ </tr>
+ {/foreach}
+</table>

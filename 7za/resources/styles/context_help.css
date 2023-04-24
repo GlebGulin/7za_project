@@ -1,0 +1,21 @@
+/* Entire table */
+.ch_table {
+    border: solid 1px black;
+    background : #FFFFE0;
+    font-size:11px;
+    font-family : Arial, Helvetica, sans-serif;
+}
+.ch_header {
+    color: #000000;;
+    background: #E0E0E0;
+    font-weight: bolder;
+    font-size: 11px;
+    font-family: Arial, Helvetica, sans-serif;
+    padding-left: 10px;
+}
+.ch_body {
+    background : #F5F5F5;
+    color: #000000;
+    font-weight : normal;
+    padding: 10px;
+}

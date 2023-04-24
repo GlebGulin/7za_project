@@ -1,0 +1,70 @@
+<html>
+<head>
+<title>Выбор продукта</title>
+ <meta http-equiv="Content-Type" content="text/html; charset=windows-1251">
+ <link href="{$URL_STYLE}admin_styles.css" rel="stylesheet" type="text/css">
+<SCRIPT src="{$URL_SCRIPT}treeview/ua.js"></SCRIPT>
+<SCRIPT src="{$URL_SCRIPT}treeview/ftiens4.js"></SCRIPT>
+<SCRIPT SRC="{$URL_SCRIPT}treeview/selector.js"></SCRIPT>
+
+  <SCRIPT>
+
+// The following code constructs the tree.
+foldersTree = gFld("Категории товаров", "javascript:void(0);");
+foldersTree.treeID = "checkboxTree";
+var useCheckbox = {if $mode=="multiple"}true{else}false{/if};
+var field = '{$field}';
+var cats = new Array();
+var subcats = new Array();
+{foreach from=$categories key=cat_id item=category}
+cats[{$cat_id}] = insFld(foldersTree, gFld("{$category.category_name}", "javascript:void(0)"))
+ {foreach from=$category.subcategories item=subcat}
+ subcats[{$subcat.subcategory_id}] = insFld(cats[{$cat_id}], gFld("{$subcat.subcategory_name}", "javascript:parent.op()"))
+  {foreach from=$subcat.products item=product}
+   generateCheckBox(subcats[{$subcat.subcategory_id}], "{$product.product_name}", "box{counter}", {$product.product_id}, useCheckbox, {if $selected[$product.product_id]}1{else}0{/if})
+  {/foreach}
+ {/foreach}
+{/foreach}
+  {literal}
+  var winopener = window.opener;
+  function selectItem(value)
+  {
+      winopener.selectProducts(value,field);
+      window.close();
+  }
+
+    function submitTreeForm()
+    {
+        var i = 1;
+        var prods = new String();
+        while (document.getElementById('box'+i) != undefined)
+        {
+            if (document.getElementById('box'+i).checked)
+                prods += "," + document.getElementById('box'+i).name.substr(4);
+            i++
+        }
+        if (prods.length > 0)
+            prods = prods.substr(1);
+        selectItem(prods);
+    }
+  {/literal}
+  </SCRIPT>
+</head>
+
+<body topmargin="10" bottommargin="0" rightmargin="10" leftmargin="10" bgcolor="#ffffff">
+<h3>Выбор продукта</h3>
+
+
+<form name="ft" method="POST">
+
+ <SCRIPT>initializeDocument()</SCRIPT>
+ <NOSCRIPT>
+  Необходимо включить поддержку JavaScript для работы этого приложения.
+ </NOSCRIPT>
+
+ <br />
+ <input type="button" onClick="submitTreeForm()" class="button" value="Взять отмеченные товары">
+</form>
+
+</body>
+</html>

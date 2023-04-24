@@ -1,0 +1,13 @@
+{if $vacancies|@count}
+	<br />
+	<h4><a name="top">Требуются на работу:</a></h4>
+	{foreach name=vac from=$vacancies item=item}
+		<a href="#{$item.vacancy_id}">{$item.post}</a><br />
+	{/foreach}
+	<br />
+	{foreach name=vac from=$vacancies item=item}
+		<br /><strong><a name="{$item.vacancy_id}">{$item.post}</a></strong><br />
+					  {$item.requir}
+		<a href="#top">К списку вакансий</a>				  	
+	{/foreach}
+{/if}	

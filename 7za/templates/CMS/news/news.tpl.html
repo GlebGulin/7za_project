@@ -1,0 +1,16 @@
+<h1>{$news.title}</h1>
+{if $news.image_file_id}<div style="float:right;">{mm_image file_id=$news.image_file_id}</div>{/if}
+<p  class="date">{$news.date|date_format:"%d.%m.%Y"}</p>
+<div>{$news.text}</div>
+<br />
+{if $last_news}
+<h2>Другие новости:</h2>
+{foreach from=$last_news item=n}
+<p><span class="date">{$n.date|date_format:"%d.%m.%Y"}</span><br />
+  <a href="/news/{$n.news_id}/" class="item_title">{$n.title}</a></p>
+<p>{$n.text|strip_tags|truncate:200}</p>
+<p><a href="/news/{$n.news_id}/" class="more">подробнее</a></p>
+{/foreach}
+{/if}
+{*include file="CMS/news/subscribe.tpl.html"*}
+<p><a href="/pages/3/">Все новости</a></p>

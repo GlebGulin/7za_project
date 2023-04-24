@@ -1,0 +1,30 @@
+<h3>Категории статей</h3>
+<div align="right"><a href="index.php?mode=add_category"><img src="{$URL_IMAGE}admin/page_add.gif" border="0" align="absmiddle"> Добавить категорию</a></div>
+  <table width="100%"  border="0" cellspacing="1" cellpadding="2">
+    <tr>
+      <td width="40" class="tableHeader">ID</td>
+      <td class="tableHeader">Название категории</td>
+      <td class="tableHeader">Позиция</td>
+      <td width="120" class="tableHeader">&nbsp;</td>
+    </tr>
+
+    {foreach name=categories from=$categories item=item}
+    <tr class="tableRow{cycle values=1,2}">
+      <td align="center">{$item.category_id}</td>
+      <td><a href="index.php?mode=articles&id={$item.category_id}">{$item.name}</a></td>
+      <td align="center">
+      	<a href="index.php?mode=category_up&id={$item.category_id}" title="Переместить верх"><img src="{$URL_IMAGE}admin/page_up.gif" alt="Переместить верх" width="24" height="24" border="0" align="absmiddle"></a>
+      	<a href="index.php?mode=category_down&id={$item.category_id}" title="Переместить вниз"><img src="{$URL_IMAGE}admin/page_down.gif" alt="Переместить вниз" width="24" height="24" border="0" align="absmiddle"></a>
+      </td>
+      <td align="center" nowrap>
+      	<a href="index.php?mode=edit_category&id={$item.category_id}" title="Редактировать"><img src="{$URL_IMAGE}admin/page_edit.gif" width="24" height="24" border="0" alt="Редактировать"></a>
+      	<a href="#" onClick="if (confirm('Вы действительно хотите удалить эту категорию со всеми статьями?\n{$item.name|htmlspecialchars}')) location.href='index.php?mode=delete_category&id={$item.category_id}';" title="Удалить"><img src="{$URL_IMAGE}admin/page_delete.gif" width="24" height="24" border="0" alt="Удалить"></a>
+      </td>
+    </tr>
+    {foreachelse}
+    <tr>
+     <td colspan="5" align="center" class="tableRow1">Нет категорий</td>
+    </tr>
+    {/foreach}
+
+  </table>

@@ -1,0 +1,18 @@
+<h1>Статьи</h1>
+<p><a href="/pages/4/"{if $curr_a_category == 0} style="font-weight:bold;"{/if}>Все</a>&nbsp;&nbsp;
+{foreach from=$articles_categories item=item}
+<a href="/articles/cat/{$item.category_id}/"{if $curr_a_category == $item.category_id} style="font-weight:bold;"{/if}>{$item.name}</a>&nbsp;&nbsp;
+{/foreach}
+</p>
+<h2>{$article.title}</h2>
+<p class="date">{$article.added_time|date_format:"%d.%m.%Y"}</p>
+{if $article.image_file_id}<div style="float:right;">{mm_image file_id=$article.image_file_id}</div>{/if}
+<div>{$article.text}</div>
+<div style="clear:both;"></div>
+
+{if $other_articles}
+<h2>Другие статьи</h2>
+{foreach name=other_articles from=$other_articles item=item}
+<p><span class="date">{$item.added_time|date_format:"%d.%m.%Y"}</span>&nbsp; <a href="/article/{$item.article_id}/" class="item_title"><strong>{$item.title}</strong></a></p>
+{/foreach}
+{/if}

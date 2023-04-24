@@ -1,0 +1,122 @@
+<h1>Корзина</h1>
+
+{if $cart_list|@count}
+ <script language="JavaScript" type="text/javascript" src="{$URL_SCRIPT}priceformat.js"></script>
+ <script language="JavaScript" type="text/javascript"><!--
+  {literal}
+
+        product_count = {/literal}{$cart_list|@count}{literal};
+        cost_delivery = {/literal}{$cost_delivery}{literal};
+        cost_threshold = {/literal}{$cost_threshold}{literal};
+
+		function calculate_summ()
+		{
+			common_summ = 0;
+			for(i=1;i<=product_count;i++)
+			{
+				count = document.getElementById('product_count_'+i).value;
+				price = document.getElementById('product_price_'+i).innerHTML;
+				common_summ = common_summ + count*price;
+  			    document.getElementById('product_summ_'+i).innerHTML = formatPrice(Math.round(count*price*100)/100);
+			}
+			summ = formatPrice(Math.round(common_summ*100)/100);
+			if ( common_summ < cost_threshold )
+			{
+				document.getElementById('deliv').innerHTML = formatPrice(cost_delivery);
+				document.getElementById('comm_summ').innerHTML = formatPrice(common_summ+cost_delivery);
+			}
+			else
+			{
+				document.getElementById('deliv').innerHTML = formatPrice(0);
+				document.getElementById('comm_summ').innerHTML = formatPrice(common_summ);
+			}
+			//document.getElementById('summ').innerHTML = summ;
+
+			return true;
+		}
+
+		function check_numeral(m)
+		{
+			var strTable="01234567890";
+			var strRet = "";
+			var cTmp, nTmp;
+			for(i=0;i<m.value.length; i++)
+			{
+				cTmp = m.value.charAt(i);
+				nTmp = strTable.indexOf(cTmp);
+				if (cTmp==',')cTmp='.';
+				if (nTmp >= 0) strRet += cTmp;
+			}
+			if (m.value != strRet) m.value = strRet;
+		}
+  {/literal}
+ --></script>
+<script type="text/javascript" src="{$URL_SCRIPT}counts.js" language="javascript"></script>
+
+
+<form action="/order/index.php?mode=show_order" method="post">
+<table width="100%" border="0" align="center" cellpadding="4" cellspacing="1">
+ <tr class="tableHeader">
+  <th>Фото</th>
+  <th>Название продукта</th>
+  <th width="70">Количество</th>
+  <th>Цена</th>
+  <th>Сумма</th>
+  <th>Удалить</th>
+ </tr>
+ {foreach name="cart_list" from=$cart_list item=item}
+ <tr align="center">
+  <td align="center">{mm_image_preview file_id=$item.image_file_id}</td>
+  <td><a href="/product/{$item.product_id}/">{$item.product_name}</a></td>
+  <td>
+  <table border="0" cellspacing="0" cellpadding="0" name="stepper" id="stepper">
+	  <tr>
+		<td rowspan="2"><input type="text" class="count" name="products[{$item.product_id}]" id="product_count_{$smarty.foreach.cart_list.iteration}" value="{$item.quantity}" /></td>
+		<td valign="bottom"><img alt="Увеличить количество" src="{$URL_IMAGE}top.gif"></td>
+	  </tr>
+	  <tr>
+		<td valign="top"><img alt="Уменьшить количество" src="{$URL_IMAGE}down.gif"></td>
+	  </tr>
+	</table>
+  </td>
+  <td id="product_price_{$smarty.foreach.cart_list.iteration}">{$item.price}</td>
+  <td id="product_summ_{$smarty.foreach.cart_list.iteration}">&nbsp;</td>
+  <td align="center"><a href="#" onClick="if (confirm('Удалить товар из корзины?\n{$item.product_name}')) location.href='/order/index.php?mode=delete_from_cart&product_id={$item.product_id}';"><img src="{$URL_IMAGE}admin/delete.gif" border="0" align="absmiddle"></a></td>
+ </tr>
+ {/foreach}
+
+ <!--
+ <tr class="tableBody">
+  <td colspan="5" align="right">Сумма, $:</td>
+  <td align="center"><span id="summ">&nbsp;</span></td>
+  <td>&nbsp;</td>
+ </tr>
+ -->
+
+ <tr class="tableBody">
+  <td colspan="5" align="right">Доставка, грн:</td>
+  <td align="center"><span id="deliv">&nbsp;</span></td>
+  <td>&nbsp;</td>
+ </tr>
+
+ <tr class="tableBody">
+  <td colspan="5" align="right" class="red"><strong>Всего, грн.:</strong></td>
+  <td align="center"><span id="comm_summ">&nbsp;</span></td>
+  <td>&nbsp;</td>
+ </tr>
+
+</table>
+<script type="text/javascript">
+initSteppers();
+</script>
+
+<div align="center" style="padding-top: 15px;"><input type="submit" value="Оформить заказ"></div>
+</form>
+
+{literal}<script type="text/javascript">calculate_summ();</script>{/literal}
+
+{else}
+
+ <p style="padding-left: 30px;">Ваша корзина пуста</p>
+
+{/if}

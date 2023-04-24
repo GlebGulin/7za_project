@@ -1,0 +1,15 @@
+<div align="center">
+<a href="{$smarty.server.PHP_SELF}">Рейтинг страниц</a>&nbsp;&nbsp;&nbsp;
+<a href="{$smarty.server.PHP_SELF}?mode=days">Посещения по дням</a>&nbsp;&nbsp;&nbsp;
+<a href="{$smarty.server.PHP_SELF}?mode=search_phrases">Поисковые фразы</a>&nbsp;&nbsp;&nbsp;
+</div>
+<form action="{$smarty.server.PHP_SELF}?mode=auditory" name="monthfrm" method="POST" style="margin: 0px;">
+<p class="header">Посещения. Аудитория сайта. Месяц: 
+<select name="month" onChange="document.monthfrm.submit();">
+{foreach name="months" from=$months item=item}
+ <option value="{$item.month}"{if $item.month==$smarty.request.month} selected{/if}>{$item.month}</option>
+{/foreach}
+</select></p>
+</form>
+
+<div align="center"><img src="{$auditory_image}" border="0"></div>

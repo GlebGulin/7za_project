@@ -1,0 +1,5 @@
+<div style="text-align:right">
+Сортировать по: <a href="{$url}?sortby={if $sortby=='price'}price_desc{else}price{/if}">цене</a>{if $sortby=='price'}<img src="{$URL_IMAGE}up.gif" align="absmiddle" />{elseif $sortby=='price_desc'}<img src="{$URL_IMAGE}desc.gif" align="absmiddle" />{/if}&nbsp;&nbsp;
+<a href="{$url}?sortby={if $sortby=='name'}name_desc{else}name{/if}">наименованию</a>
+{if $sortby=='name'}<img src="{$URL_IMAGE}up.gif" align="absmiddle" />{elseif $sortby=='name_desc'}<img src="{$URL_IMAGE}desc.gif" align="absmiddle" />{/if}
+</div>

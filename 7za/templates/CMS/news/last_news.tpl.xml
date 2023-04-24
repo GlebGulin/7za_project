@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<rss version="2.0">
+
+<channel>
+	<title>Последние новости компании ВИЧЕ Консалтинг</title>
+	<link>http://{$smarty.server.HTTP_HOST}/pages/17/</link>
+	<description>ВИЧЕ Консалтинг - бизнес-тренинги, подбор персонала, реинжиниринг бизнес-процессов</description>
+	<pubDate>{$pub_date}</pubDate>
+	<language>ru</language>
+	<ttl>300</ttl>
+	{foreach from=$news item=item}
+	<item>
+		<title>{$item.title}</title>
+		<link>http://{$smarty.server.HTTP_HOST}/news/{$item.news_id}/</link>
+		<guid>http://{$smarty.server.HTTP_HOST}/news/{$item.news_id}/</guid>
+		<description><![CDATA[{$item.text|strip_tags|trim|truncate:300:"..."}]]></description>
+	</item>
+	{/foreach}
+</channel>
+</rss>

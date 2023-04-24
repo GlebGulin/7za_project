@@ -1,0 +1,5 @@
+{foreach name="cats" from=$categories item=cat}
+{foreach name="cats" from=$cat.subcategories item=item}
+{$item.subcategory_id}|{$item.subcategory_name}
+{/foreach}
+{/foreach}

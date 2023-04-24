@@ -1,0 +1,29 @@
+{foreach name="menu" from=$categories item=item}
+<tr>
+{if $item.category_id == $cat_id}
+  <td width="35" height="30"><div align="center"><img src="{$URL_IMAGE}menu_arr.gif" width="20" height="18"></div></td>
+  <td width="194">
+   <span class="menu_active">
+    {if $language=="rus"}{$item.category_name_rus}{/if}
+    {if $language=="eng"}{$item.category_name_eng}{/if}
+   </span>
+  </td>
+{else}
+  <td height="30" width="35">&nbsp;</td>
+  <td height="30">
+   <a href="index.php?mode=show_category&cat_id={$item.category_id}" class="menu">
+    {if $language=="rus"}{$item.category_name_rus}{/if}
+    {if $language=="eng"}{$item.category_name_eng}{/if}
+   </a>
+  </td>
+{/if}
+</tr>
+<tr>
+  <td colspan="2" bgcolor="#35457a"><img src="{$URL_IMAGE}spcr.gif" width="1" height="1"></td>
+</tr>
+{/foreach}
+{if $cart_not_empty}
+<tr>
+ <td colspan="2" height="30" align="center"><img src="{$URL_IMAGE}cart.gif" border="0" align="absmiddle"> <a href="order.php">{$L_YOUR_CART}</a></td>
+</tr>
+{/if}

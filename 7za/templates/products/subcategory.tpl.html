@@ -1,0 +1,5 @@
+<h1><a href="/cat/{$category.category_id}/">{$category.category_name}</a>: {$subcategory.subcategory_name}</h1>
+{include file="products/sortby.tpl.html" url="/subcat/$subcategory_id/"}
+{include file="products/products.tpl.html" products=$products}
+
+

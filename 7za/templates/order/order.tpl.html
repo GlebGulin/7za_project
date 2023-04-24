@@ -1,0 +1,124 @@
+<script language="JavaScript" type="text/javascript"><!--
+{literal}
+function validateForm() {
+    if (hasEmptyFields('surname firstname email cnt_phone city street number', false, 'Заполните, пожалуйста, форму'))
+        return false;
+    return true;
+}
+{/literal}
+//-->
+</script>
+<h1>Оформление заказа</h1>
+<p>Обратите, пожалуйста, внимание - поля, помеченные звездочкой (<span class="red">*</span>) должны быть обязательно заполнены!</p>
+<form action="/order/index.php?mode=send_order" method="post" onSubmit="return validateForm();">
+<input type="hidden" name="products_ser" value='{$products_ser}'>
+  	<table width="400"  border="0" align="center" cellpadding="3" cellspacing="1">
+        <tr>
+			<td width="50%" class="tableHeaderLeft">Фамилия<span class="red">*</span>:</td>
+			<td><input type="text" name="surname" class="field" id="surname" value="{$surname}" style="width:200px" />{if isset($empty.surname)}<span style="color:red;">*</span>{/if}</td></tr>
+        <tr>
+        	<td class="tableHeaderLeft">Имя<span class="red">*</span>:</td>
+  			<td><input type="text" name="firstname" class="field" id="firstname" value="{$firstname}" style="width:200px"/>{if isset($empty.firstname)}<span style="color:red;">*</span>{/if}</td></tr>
+ 		<tr>
+        	<td class="tableHeaderLeft">Отчество:</td>
+  			<td><input type="text" name="lastname" class="field" id="name" value="{$lastname}" style="width:200px"/></td></tr>
+ 		<tr>
+ 			<td class="tableHeaderLeft">Контактный е-mail<span class="red">*</span>:</td>
+ 			<td><input type="text" name="email" class="field" id="email" value="{$email}" style="width:200px"/>{if isset($empty.email)}<span style="color:red;">*</span>{/if}</td></tr>
+		<tr>
+			<td class="tableHeaderLeft">Контактный телефон<span class="red">*</span>:</td>
+			<td><input type="text" name="phone" id="cnt_phone" class="field" value="{$phone}" style="width:200px"/>{if isset($empty.phone)}<span style="color:red;">*</span>{/if}</td></tr>
+
+        
+          <!--  -->
+     <!--  <script type="text/javascript">
+          function ChangeDelivery(){
+            var del = $('#Delivery').val();
+            $('#street').val(del);
+          }
+          function ChangePay(){
+            var pay = $('#Pay').val();
+            $('#number').val(pay);
+          }
+      </script> -->
+      <tr>
+        <td class="tableHeaderLeft">Улица<span class="red">*</span>:</td>
+        <td><input type="text" name="street" class="field" id="street" style="width:200px" /><span style="color:red;">*</span>{/if}</td>
+      </tr>
+      <td class="tableHeaderLeft">Способ доставки<span class="red">*</span>:</td>
+      <td><select id="Delivery" name="Delivery" style="width:200px">
+        <option id='Kyiv' value='Kyiv'>Самовывоз (Только Киев)</option>
+        <option id='NP' value="NP">Новая почта</option>
+        <option id='INTM' value='INTM'>Интайм</option>
+        <option id='UKP' value='UKP'>Укрпочта</option>
+      </select></td></tr>
+        
+
+        <!--  -->
+        
+      
+      <td class="tableHeaderLeft">Способ оплаты<span class="red">*</span>:</td>
+      <td><select name="Pay" id="Pay" style="width:200px">
+        <option value="Cash">При получении</option>
+        <option value="Privat">На карту ПриватБанка</option>
+        <option value="Checking">На расчетный счет</option>
+        
+      </select></td></tr>
+      <!--  -->
+
+    <tr>
+    <td class="tableHeaderLeft">Дом<span class="red">*</span>:</td>
+      <td><input type="text" name="number" class="field" id="number" style="width:200px" /><span style="color:red;">*</span></td></tr>  
+
+       <!--  -->
+ 		
+    <tr class="adr" style="display: none;">
+      <td colspan="2" class="tableHeader" align="center"><strong>Точный адрес доставки</strong></td>
+    </tr>
+  
+   <tr class="adr" style="display: none;">
+      <td class="tableHeaderLeft">Почтовый адрес<span class="red">*</span>:</td>
+      <td><textarea name="city" id="city" class="field" style="width:200px"></textarea></td>
+      <!-- <td><input type="text" name="city" id="city" class="field" style="width:200px" value="{$city|default:"Киев"}"></td> -->
+    </tr>
+  
+
+ 		<!-- <tr>
+ 			<td class="tableHeaderLeft">Город<span class="red">*</span>:</td>
+ 			<td><input type="text" name="city" id="city" class="field" style="width:200px" value="{$city|default:"Киев"}"></td>
+ 		</tr> -->
+ 	<!-- 	<tr>
+ 			<td class="tableHeaderLeft">Улица<span class="red">*</span>:</td>
+ 			<td><input type="text" name="street" class="field" id="street" value="{$street}" style="width:200px" />{if isset($empty.street)}<span style="color:red;">*</span>{/if}</td></tr>
+ 		<tr> -->
+ 	<!-- 		<td class="tableHeaderLeft">Дом<span class="red">*</span>:</td>
+ 			<td><input type="text" name="number" class="field" id="number" value="{$number}" style="width:200px" />{if isset($empty.number)}<span style="color:red;">*</span>{/if}</td></tr>
+ 		<tr>
+ 			<td class="tableHeaderLeft">Квартира (офис):</td>
+ 			<td><input type="text" name="office" class="field" id="office" value="{$office}" style="width:200px" /></td></tr>
+ 		<tr>
+ 			<td class="tableHeaderLeft">Подъезд:</td>
+ 			<td><input type="text" name="entrance" class="field" id="entrance" value="{$entrance}" style="width:200px" /></td></tr>
+ 		<tr>
+ 			<td class="tableHeaderLeft">Код на дверях:</td>
+ 			<td><input type="text" name="code" class="field" id="code" value="{$code}" style="width:200px" /></td></tr>
+ 		<tr>
+ 			<td class="tableHeaderLeft">Этаж:</td>
+ 			<td><input type="text" name="floor" class="field" id="floor" value="{$floor}" style="width:200px" /></td></tr> -->
+ 		<tr>
+ 			<td valign="top" class="tableHeaderLeft">Дополнительная информация и Ваши пожелания:</td>
+ 			<td><textarea name="comment" id="comment" rows="4"  class="field" style="width:200px">{$comment}</textarea></td></tr>
+
+ 		<tr>
+ 			<td>&nbsp;</td>
+ 			<td align="left">
+ 				<input type="submit" value="Заказать" >
+ 				&nbsp;&nbsp;
+ 				<input type="button" value="Отмена" onclick="location.href='/order/'" />
+ 			</td>
+ 		</tr>
+
+</table>
+</form>
+<script src="../../resources/scripts/jquery-3.3.1.min.js"></script>
+<script src="../../resources/scripts/adress.js"></script>

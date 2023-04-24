@@ -1,0 +1,42 @@
+<html>
+<head>
+<title>Адрес страницы</title>
+ <meta http-equiv="Content-Type" content="text/html; charset=windows-1251">
+ <link href="{$URL_STYLE}admin_styles.css" rel="stylesheet" type="text/css">
+</head>
+
+<body marginheight="0" marginwidth="0" topmargin="0" bottommargin="0" rightmargin="0"  leftmargin="0" bgcolor="#ffffff" onLoad="checkbrowser()">
+
+<script language="JavaScript">
+<!--
+{literal}
+function copy_cb() {
+    var Copied = holdtext.createTextRange();
+    Copied.execCommand("Copy");
+    window.close();
+}
+function checkbrowser() {
+    var ua = navigator.userAgent.toLowerCase();
+    var isIE = ( (ua.indexOf('msie') != -1) && (ua.indexOf('opera') == -1) && (ua.indexOf('webtv') == -1) ); 
+    if (isIE) document.images['clipboard'].src = '{/literal}{$URL_IMAGE}{literal}admin/clipboard_add.gif';
+}
+{/literal}
+//-->
+</script>
+
+<table cellpadding="0" cellspacing="0" border="0" width="100%" height="100%" >
+ <tr>
+  <td align="center">
+   Адрес для страницы "{$page.title}":<br /><br />
+   /pages/{$page.page_id}/
+  </td>
+ </tr>
+ <tr>
+  <td align="center">
+    <a href="#" onclick="copy_cb()"><img src="{$URL_IMAGE}admin/spacer.gif" name="clipboard" border="0"></a>
+  </td>
+ </tr>
+</table>
+<textarea id="holdtext" style="display: none;">{$URL_ROOT}view.php?page={$page.page_id}</textarea>
+</body>
+</html>

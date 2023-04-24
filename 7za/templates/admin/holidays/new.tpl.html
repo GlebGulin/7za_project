@@ -1,0 +1,43 @@
+<h3>Добавление праздника</h3>
+<form action="index.php?mode=save_new&from={$date_start}&till={$date_end}" method="POST" enctype="multipart/form-data" name="frm" onSubmit="if (hasEmptyFields('title', false, 'Заполните форму, пожалуйста')) return false;">
+<script type="text/javascript">
+{literal}
+function selectProducts(value)
+{
+    document.getElementById('products').value = value;
+}
+{/literal}
+</script>
+<table width="100%" border="0" cellpadding="3" cellspacing="1">
+ <tr>
+  <td class="tableHeaderLeft">Название</td>
+  <td class="tableRow1"><input type="text" name="title" id="title" class="input" value=""></td>
+ </tr>
+ <tr>
+  <td class="tableHeaderLeft">Дата</td>
+  <td class="tableRow1">{html_select_date field_order=DMY end_year="+1"}</td>
+ </tr>
+ <tr>
+  <td class="tableHeaderLeft">Описание</td>
+  <td class="tableRow1">{$editor_code}</td>
+ </tr>
+ <tr>
+  <td class="tableHeaderLeft">Важность</td>
+  <td class="tableRow1"><select name="importance" id="importance" class="input">
+    <option value="1" selected>1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+   </select>
+  </td>
+ </tr>
+ <tr>
+  <td class="tableHeaderLeft">Товары</td>
+  <td class="tableRow1"><input type="text" name="products" id="products" class="input" value="">
+  <a onClick="var win = window.open('/admin/products/selector.php?mode=multiple&selected='+document.getElementById('products').value, 'selector', 'menubar=no,scrollbars=yes,toolbar=no,directiories=no,status=no,location=no,width=600,height=500,left='+((screen.width-600)/2)+',top='+((screen.height-500)/2)); win.focus();" href="javascript:void(0);" target="selector">Выбрать товары</a></td>
+ </tr>
+ <tr>
+  <td>&nbsp;</td>
+  <td><br><input type="submit" class="button" value="Сохранить">&nbsp; <input type="button" onClick="location.href='index.php?from={$date_start}&till={$date_end}'; return false;" class="button" value="Отмена"></td>
+ </tr>
+</table>
+</form>

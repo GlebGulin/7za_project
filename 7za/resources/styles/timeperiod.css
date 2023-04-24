@@ -1,0 +1,22 @@
+.tpForm {
+    font-family : Verdana, Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    font-weight: normal;
+    margin: 0px;
+    padding: 0px;
+}
+.tpRadio {
+    border: 0px;
+}
+.tpSelect {
+    font-family : Verdana, Arial, Helvetica, sans-serif;
+    color:#000000;
+    font-size: 11px;
+    font-weight: normal;
+}
+.tpButton {
+    font-family : Verdana, Arial, Helvetica, sans-serif;
+    color:#000000;
+    font-size: 11px;
+    font-weight: normal;
+}

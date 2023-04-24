@@ -1,0 +1,51 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1251">
+</head>
+<body>
+На ваш e-mail адрес выполнен заказ на сайте {$smarty.server.HTTP_HOST}<br />
+
+<br />
+Заказ:
+<table border="1" cellspacing="0" cellpadding="2">
+ <tr>
+  <th>№</th>
+  <th>ID</th>
+  <th>Название продукта</th>
+  <th>Цена</th>
+  <th>Количество</th>
+  <th>Сумма</th>
+ </tr>
+{foreach name="order" from=$order.items item=item key=id}
+ <tr>
+  <td align="center">{$smarty.foreach.order.iteration}</td>
+  <td align="center">{$item.product_id}</td>
+  <td align="left">{$item.product.product_name}</td>
+  <td align="center">{$item.product_price|price_format:" грн"}</td>
+  <td align="center">{$item.product_qnt}</td>
+  <td align="center">{$item.product_summ|price_format:" грн"}</td>
+ </tr>
+{/foreach}
+
+ <tr>
+  <td colspan="4" align="right">Доставка:</td>
+  <td>&nbsp;</td>
+  <td align="center">{$order.order_delivery|price_format:" грн"}</td>
+ </tr>
+
+ <tr>
+  <td colspan="4" align="right">Всего:</td>
+  <td align="center">&nbsp;</td>
+  <td align="center">{$order.order_common_summ|price_format:" грн"}</td>
+ </tr>
+
+
+</table>
+
+<p>Благодарим за покупку в магазине "7za".</p>
+<p>--<br />
+Администрация интернет-магазина 7ZA.COM.UA<br />
+<a href="http://www.7za.com.ua">www.7za.com.ua</a><br />
+(044) 353 77 35</p>
+</body>
+</html>

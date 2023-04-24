@@ -1,0 +1,28 @@
+<h3>Редактирование прайсов</h3>
+<table width="95%" border="0" cellpadding="3" cellspacing="0" align="center">
+ <tr>
+  <td align="right"><a href="index.php?mode=new"><img src="{$URL_IMAGE}admin/add.gif" border="0" align="absmiddle">&nbsp;Добавить прайс</a></td>
+ </tr>
+</table>
+
+<table width="95%" border="0" cellpadding="3" cellspacing="1" align="center">
+ <tr>
+  <td class="tableHeader">ID</td>
+  <td class="tableHeader">Заголовок</td>
+  <td class="tableHeader">Файл</td>
+  <td class="tableHeader">Дата</td>
+  <td class="tableHeader" width="90">&nbsp;</td>
+ </tr>
+ {foreach name="prices" from=$prices item="item"}
+ <tr class="tableRow{if $smarty.foreach.prices.iteration is odd}1{else}2{/if}">
+  <td align="center">{$item.price_id}</td>
+  <td align="center"><a href="index.php?mode=edit&id={$item.price_id}">{$item.title}</a></td>
+  <td align="center"><a href="{$item.file.file_url}">{file_icon file_name=$item.file.file_name} {$item.file.file_name}</a></td>
+  <td align="center">{$item.added_time|date_format:"%d.%m.%Y %H:%M"}</td>
+  <td align="center">
+   <a href="index.php?mode=edit&id={$item.price_id}"><img src="{$URL_IMAGE}admin/edit.gif" border="0" align="absmiddle" alt="Редактировать"></a>&nbsp;
+   <a href="#" onClick="if (confirm('Вы действительно хотите удалить этот прайс?\n{$item.title}')) location.href='index.php?mode=delete&id={$item.price_id}';"><img src="{$URL_IMAGE}admin/delete.gif" border="0" align="absmiddle" alt="Удалить"></a>
+  </td>
+ </tr>
+ {/foreach}
+</table>

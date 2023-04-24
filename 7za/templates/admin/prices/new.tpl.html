@@ -1,0 +1,21 @@
+<p class="header" align="center">Создание нового прайс-листа</p>
+<form action="index.php?mode=save_new" method="POST" name="pricefrm" enctype="multipart/form-data" onSubmit="if (hasEmptyFields('title price_file', false, 'Заполните, пожалуйста, все поля формы')) return false;">
+<table width="95%" align="center" cellpadding="3" cellspacing="1" border="0">
+ <tr>
+  <td class="tableHeaderLeft">Название прайс-листа:</td>
+  <td class="tableRow1"><input type="text" name="title" id="title" class="input"></td>
+ </tr>
+ <tr>
+  <td class="tableHeaderLeft">Файл прайс-листа:</td>
+  <td class="tableRow1"><input type="file" name="price_file" id="price_file" class="input"></td>
+ </tr>
+ <tr>
+  <td>&nbsp;</td>
+  <td class="tableRow1">
+  	<input type="submit" value="Сохранить" class="button">
+  	&nbsp;&nbsp;
+  	<input type="button" value="Отменить" class="button" onClick="location.href='index.php';">
+  </td>
+ </tr>
+</table>
+</form>

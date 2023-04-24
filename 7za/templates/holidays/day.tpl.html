@@ -1,0 +1,15 @@
+<div class="content_col">
+<h1>{$holiday.title}</h1>
+{$holiday.holiday_date|date_format:"%e"}
+{eval var=$holiday.holiday_date|date_format:"%m" assign=month_num}{$monthNames[$month_num]}
+<br /><br />
+<div>{$holiday.description}</div>
+
+<br />
+<h1>Подарки на {$holiday.title}</h1>
+
+{foreach name=p from=$products item=product}
+<div class="line">&nbsp;</div>
+{include file="products/product_block.tpl.html" product=$product}
+{/foreach}
+</div>

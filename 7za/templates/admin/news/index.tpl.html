@@ -1,0 +1,33 @@
+ <h3>Редактирование новостей</h3>
+	 <div align="right"><a href="index.php?mode=add_news"><img src="{$URL_IMAGE}admin/page_add.gif" border="0" align="absmiddle"> Добавить новость</a></div>
+          <table width="100%"  border="0" cellspacing="1" cellpadding="2">
+            <tr>
+              <td width="40" class="tableHeader">ID</td>
+              <td class="tableHeader">Заголовок</td>
+              <td class="tableHeader">Дата</td>
+              <td class="tableHeader">Показывать</td>
+              <td width="120" class="tableHeader">&nbsp;</td>
+            </tr>
+
+            {foreach name=vacancies from=$news item=item}
+            <tr class="tableRow{cycle values=1,2}">
+              <td align="center">{$item.news_id}</td>
+              <td>{$item.title_rus}</td>
+              <td align="center">{$item.date|date_format:"%d.%m.%Y"}</td>
+              <td align="center">
+              	<a href="index.php?mode=visible_news&news_id={$item.news_id}">
+               		<img src="{$URL_IMAGE}admin/{if $item.visible}allowed{else}restricted{/if}.gif" alt="Показать/скрыть" title="Показать/скрыть" width="24" height="24" border="0" align="absmiddle">
+              	</a>
+              </td>
+              <td align="center" nowrap>
+              	<a href="index.php?mode=edit_news&news_id={$item.news_id}"><img src="{$URL_IMAGE}admin/page_edit.gif" width="24" height="24" border="0" alt="Редактировать новость" title="Редактировать новость" ></a>
+              	<a href="#" onClick="if (confirm('Вы действительно хотите удалить эту новость?\n{$item.title_rus|htmlspecialchars}')) location.href='index.php?mode=delete_news&news_id={$item.news_id}';"><img src="{$URL_IMAGE}admin/page_delete.gif" width="24" height="24" border="0" alt="Удалить новость" title="Удалить новость"></a>
+              </td>
+            </tr>
+            {foreachelse}
+            <tr>
+             <td colspan="5" align="center" class="tableRow1">Нет новостей</td>
+            </tr>
+            {/foreach}
+
+          </table>

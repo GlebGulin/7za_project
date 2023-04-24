@@ -1,0 +1,22 @@
+<h3>Заказы</h3>
+
+<table width="95%" border="0" cellpadding="3" cellspacing="1" align="center">
+ <tr>
+  <td class="tableHeader">ID</td>
+  <td class="tableHeader">ФИО</td>
+  <td class="tableHeader">Дата и время</td>
+  <td class="tableHeader">Сумма заказа, грн</td>
+  <td class="tableHeader">Статус</td>  
+  <td class="tableHeader"> &nbsp;</td>
+ </tr>
+ {foreach name="orders" from=$orders item="item"}
+ <tr class="tableRow{if $smarty.foreach.orders.iteration is odd}1{else}2{/if}">
+  <td align="center">{$item.order_id}</td>
+  <td align="center"><a href="index.php?mode=edit&id={$item.order_id}">{$item.surname} {$item.firstname} {$item.lastname}</a></td>
+  <td align="center">{$item.added_time|date_format:"%d.%m.%Y %H:%M"}</td>
+  <td align="center">{$item.order_summ|price_format:""}</td>  
+  <td align="center"><a href="index.php?mode=next_status&id={$item.order_id}">{$item.status_name}</a></td>
+  <td align="center">{if $item.status_id == 1}<a href="#" onClick="if (confirm('Вы действительно хотите удалить этот заказ?\nID = {$item.order_id}')) location.href='index.php?mode=delete&id={$item.order_id}';"><img src="{$URL_IMAGE}admin/delete.gif" border="0" align="absmiddle" alt="Удалить"></a>{else}&nbsp;{/if}</td>
+ </tr>
+ {/foreach}
+</table>

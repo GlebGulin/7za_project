@@ -1,0 +1,43 @@
+ <script language="JavaScript" type="text/javascript" src="{$URL_SCRIPT}forms.js"></script>
+		<table width="150"  border="0" cellspacing="1" cellpadding="3" align="right" style="margin-left:10px">
+            {foreach name=years from=$arch key=key item=months}
+            <tr>
+              <td class="tableRow1"><a href="/{$lng_link}/archive/{$key}/"><strong>{$key}</strong></a></td>
+            </tr>
+             {if $year == $key}
+               {foreach name=months from=$months item=month_name key=month_num}
+            	<tr class="tableRow2">
+            		<td style="padding-left: 25px;">
+            			{if $month == $month_num}
+            				<a href="/{$lng_link}/archive/{$key}/{$month_num}/"><strong>{$month_name}</strong></a>
+            			{else}
+            				<a href="/{$lng_link}/archive/{$key}/{$month_num}/">{$month_name}</a>
+            			{/if}
+            		</td>
+            	</tr>
+               {/foreach}
+              {/if}	
+            {/foreach}
+
+            <tr>
+              <td>&nbsp;</td>
+            </tr>
+            <tr>
+              <td class="tableRow1"><strong>{$L_SUBSCRIBE_TITLE}</strong></td>
+            </tr>
+            <tr>
+              <td align="center">{$L_SUBSCRIBE_NEWS}</td>
+            </tr>
+          
+           <form action="/pages/{if $language=='rus'}30{else}32{/if}/" method="post" onSubmit="if (hasEmptyFields('email', false, '{$L_PLEASE_FILL_FORM}')) return false;">
+           <input type="hidden" name="mode" value="subscribe">
+            <tr>
+              <td colspan="2" align="center" nowrap>
+              	<input type="text" name="email" class="form_item" id="email" style="width:120px;">
+              	<input type="submit" value="OK" style="width:25px;font-size:9px">
+              </td>
+            </tr>
+
+            </form>   
+              
+         </table>

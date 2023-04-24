@@ -1,0 +1,130 @@
+	<table width="90%"  border="0" align="center" cellpadding="3" cellspacing="1">
+  		<tr><td colspan="4" align="center">Для физических и юридических лиц</td></tr>
+		<tr>
+			<td class="tableHeaderLeft">ID:</td>
+			<td class="tableRow1">&nbsp;{$order.order_id}</td>
+ 			<td class="tableHeaderLeft">Дата и время:</td>
+ 			<td class="tableRow1">&nbsp;{$order.added_time|date_format:"%d.%m.%Y %H:%M"}</td>			
+		</tr>  		
+		<tr>
+			<td class="tableHeaderLeft">Фамилия:</td>
+			<td class="tableRow1">&nbsp;{$order.surname}</td>
+ 			<td class="tableHeaderLeft">Контактный е-mail:</td>
+ 			<td class="tableRow1">&nbsp;{$order.email}</td>			
+		</tr>
+		<tr>
+        	<td class="tableHeaderLeft">Имя:</td>
+  			<td class="tableRow1">&nbsp;{$order.firstname}</td>
+			<td class="tableHeaderLeft">Контактный телефон:</td>
+			<td class="tableRow1">&nbsp;{$order.phone}</td>  			
+  		</tr>
+  		<tr>
+        	<td class="tableHeaderLeft">Отчество:</td>
+  			<td class="tableRow1">&nbsp;{$order.lastname}</td>
+ 			<td class="tableHeaderLeft">Факс:</td>
+ 			<td class="tableRow1">&nbsp;{$order.fax}</td>  			
+ 		</tr>
+ 		<tr>
+ 			<td colspan="4" align="center">Точный адрес доставки</td>
+ 		</tr>  
+ 		<tr>
+ 			<td class="tableHeaderLeft">Индекс:</td>
+ 			<td class="tableRow1">&nbsp;{$order.ind}</td>
+ 			<td class="tableHeaderLeft">Дом:</td>
+ 			<td class="tableRow1">&nbsp;{$order.number}</td> 			 			
+ 		</tr>  	
+ 		<tr>
+ 			<td class="tableHeaderLeft">Регион:</td>
+ 			<td class="tableRow1">&nbsp;{$order.region}</td>
+ 			<td class="tableHeaderLeft">Корпус:</td>
+ 			<td class="tableRow1">&nbsp;{$order.building}</td> 	 			
+ 		</tr>  	
+ 		<tr>
+ 			<td class="tableHeaderLeft">Район:</td>
+ 			<td class="tableRow1">&nbsp;{$order.district}</td>
+ 			<td class="tableHeaderLeft">Квартира (офис):</td>
+ 			<td class="tableRow1">&nbsp;{$order.office}</td> 			
+ 		</tr>  	
+ 		<tr>
+ 			<td class="tableHeaderLeft">Город:</td>
+ 			<td class="tableRow1">&nbsp;{$order.city_name}</td> 	 		
+ 			<td class="tableHeaderLeft">Подъезд:</td>
+ 			<td class="tableRow1">&nbsp;{$order.entrance}</td> 	
+ 		</tr>   				
+ 		<tr>
+ 			<td class="tableHeaderLeft">Улица:</td>
+ 			<td class="tableRow1">&nbsp;{$order.street}</td> 					 		
+	 		<td class="tableHeaderLeft">Код:</td>
+ 			<td class="tableRow1">&nbsp;{$order.code}</td> 
+ 		</tr>  
+ 		<tr>
+ 			<td class="tableHeaderLeft">Дополнительная информация:</td>
+ 			<td class="tableRow1">&nbsp;{$order.comment}</td>
+ 			<td class="tableHeaderLeft">Этаж:</td>
+ 			<td class="tableRow1">&nbsp;{$order.floor}</td> 			
+ 		</tr>   
+ 		
+		<tr>
+ 			<td colspan="4" align="center">Для юридических лиц</td>
+ 		</tr>  
+ 		
+ 		<tr>
+ 			<td class="tableHeaderLeft">Компания:</td>
+ 			<td class="tableRow1">&nbsp;{$order.company}</td>
+ 			<td class="tableHeaderLeft">ОКПО:</td>
+ 			<td class="tableRow1">&nbsp;{$order.okpo}</td> 			 			
+ 		</tr>  	
+ 		<tr>
+ 			<td class="tableHeaderLeft">Юридический адрес:</td>
+ 			<td class="tableRow1">&nbsp;{$order.legal_address}</td>
+ 			<td class="tableHeaderLeft">Наименование банка:</td>
+ 			<td class="tableRow1">&nbsp;{$order.bank_name}</td> 	 			
+ 		</tr>  	
+ 		<tr>
+ 			<td class="tableHeaderLeft">фактический адрес(почтовый):</td>
+ 			<td class="tableRow1">&nbsp;{$order.postal_address}</td>
+ 			<td class="tableHeaderLeft">Pасчетный счет:</td>
+ 			<td class="tableRow1">&nbsp;{$order.settl_account}</td> 			
+ 		</tr>  	
+ 		<tr>
+ 			<td class="tableHeaderLeft">ИНН:</td>
+ 			<td class="tableRow1">&nbsp;{$order.inn}</td> 	 		
+ 			<td class="tableHeaderLeft">Кор. счет:</td>
+ 			<td class="tableRow1">&nbsp;{$order.corr_account}</td> 	
+ 		</tr>   				
+ 		<tr>
+ 			<td class="tableHeaderLeft">КПП:</td>
+ 			<td class="tableRow1">&nbsp;{$order.kpp}</td> 					 		
+	 		<td class="tableHeaderLeft">БИК:</td>
+ 			<td class="tableRow1">&nbsp;{$order.bik}</td> 
+ 		</tr>  
+ 		 		
+ 	</table>
+ 	
+ 	<br /><br />
+ 	
+<table width="90%"  border="0" align="center" cellpadding="3" cellspacing="1">
+ <tr class="tableHeader">
+  <td>№</td>
+  <td>ID</td>
+  <td>Название продукта</td>
+  <td>Цена</td>
+  <td>Количество</td>
+  <td>Сумма</td>
+ </tr>
+{foreach name="order" from=$order.items item=item key=id}
+ <tr class="tableRow{cycle values=1,2}">
+  <td align="center">{$smarty.foreach.order.iteration}</td>
+  <td align="center">{$item.product_id}</td>
+  <td align="left">{$item.product.product_name}</td>
+  <td align="center">{$item.product_price|price_format:" грн"}</td>
+  <td align="center">{$item.product_qnt}</td>
+  <td align="center">{$item.product_summ|price_format:" грн"}</td>
+ </tr>
+{/foreach}
+ <tr>
+  <td colspan="4" align="right">Всего:</td>
+  <td align="center">{$order.order_qnt}</td>
+  <td align="center">{$order.order_summ|price_format:" грн"}</td>
+ </tr>
+</table>

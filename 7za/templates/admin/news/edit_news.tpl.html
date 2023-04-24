@@ -1,0 +1,28 @@
+<h3>Редактирование новости "{$item.title_rus|htmlspecialchars}"</h3>
+<form action="index.php?mode=save_news&news_id={$item.news_id}" method="POST" onSubmit="if (hasEmptyFields('title_rus title_ukr', false, 'Заполните форму, пожалуйста.')) return false;" enctype="multipart/form-data">
+  <table width="100%"  border="0" cellspacing="1" cellpadding="3">
+    <tr>
+      <td class="tableHeaderLeft">Заголовок новости</td>
+      <td class="tableRow1"><input name="title_rus" type="text" class="text" id="title_rus" value="{$item.title_rus|htmlspecialchars}" style="width:100%;"></td>
+    </tr>
+    <tr>
+      <td class="tableHeaderLeft">Текст новости</td>
+      <td class="tableRow2">{$editor_code_rus}</td>
+    </tr>
+    <tr>
+      <td class="tableHeaderLeft" width="150">Картинка новости</td>
+      <td class="tableRow1">{mm_image file_id=$item.image_file_id}<br><input name="image_file" type="file" class="text" id="image_file"></td>
+    </tr>
+    <tr>
+      <td class="tableHeaderLeft">Показывать новость</td>
+      <td class="tableRow1"><input name="visible" type="checkbox" id="visible" value="1"{if $item.visible} checked{/if}></td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td>
+        <br />
+      	<input name="Submit" type="submit" class="button" value="Сохранить">&nbsp;
+      	<input type="button" class="button" value="Отмена" onclick="location.href='index.php'"></td>
+    </tr>
+  </table>
+  </form>

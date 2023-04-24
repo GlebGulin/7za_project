@@ -1,0 +1,76 @@
+<h1>{$product.product_name}</h1>
+<table border="0" width="100%" align="center" cellpadding="10" cellspacing="0">
+<tr>
+  <td align="center" valign="top">{mm_image file_id=$product.image_file_id alt=$product.product_name|decodeRequestValue}</td>
+  <td align="left" valign="top" >
+    {if !$product.absent}<div class="to_cart">{include file="products/to_cart.tpl.html"}</div>{/if}
+   <strong>
+    {if $product.absent}<span class="price"><img src="{$URL_IMAGE}clock.gif" border="0" alt="Товар ожидается" align="absmiddle"> товар ожидается</span>
+    {else}
+    Цена: <span class="price">{if $product.discount_price}<del>{/if}{$product.price|price_format:""}{if $product.discount_price}</del>{/if} грн </span> {if $product.discount_price}<br />Сегодня: <span class="price">{$product.discount_price|price_format:""} грн. </span>{/if}
+    {/if}
+   </strong>
+    <div>{$product.description}</div>
+    {if $product.add_photos}
+    <div align="center"><strong>Другие фотографии {$product.product_name}</strong></div>
+    <div align="center" style="padding:10px 0 20px 0;">
+    {foreach from=$product.add_photos item=photo}
+    {mm_image_preview file_id=$photo}
+    {/foreach}
+    </div>
+    {/if}
+  </td>
+ </tr>
+</table>
+  {if $product.parameters}
+  <h1>Характеристики {$product.product_name}</h1>
+     <table width="90%" border="0" cellpadding="3" cellspacing="0" class="grid" align="center">
+       {foreach name="params" from=$product.parameters item=param}
+       {if $param.value || $param.is_header}
+       <tr class="tableRow{cycle values="1,2"}">
+       {if $param.is_header}
+         <td colspan="2"><strong>{$param.parameter_name}</strong></td>
+       {else}
+         <td width="50%">{$param.parameter_name}:</td>
+         <td>{$param.value} {$param.unit}</td>
+       {/if}
+       </tr>
+       {/if}
+       {/foreach}
+     </table>
+  {/if}
+  <h1>Отзывы к {$product.product_name}</h1>
+   {foreach from=$comments item=item}
+   <div class="comment_global">{eval var=$item.added_time|date_format:"%m" assign=month_num}
+    <div class="comment_header"><strong>{$item.author}</strong> писал(а) {$item.added_time|date_format:"%e"} {$monthNames[$month_num]} {$item.added_time|date_format:"%Y"} г.:</div>
+    <div class="comment_text">{$item.comment_text|nl2br|beautify}</div>
+   </div>
+   {foreachelse}
+   <div>Нет отзывов</div>
+   {/foreach}
+   {if $allow_posting}
+   <form action="/products/index.php?product_id={$product.product_id}&mode=save_comment" method="POST" onSubmit="if (hasEmptyFields('author comment_text check_image', false, 'Заполните форму, пожалуйста')) return false;">
+   <table width="100%" border="0" cellpadding="3" cellspacing="1">
+    <tr>
+     <td class="tableHeaderLeft" width="50%">Ваше имя:</td>
+     <td><input type="text" name="author" id="author" class="field" style="width:200px;"></td>
+    </tr>
+    <tr>
+     <td class="tableHeaderLeft">Текст комментария:</td>
+     <td><textarea name="comment_text" id="comment_text" rows="3"  class="field" style="width:200px;"></textarea></td>
+    </tr>
+    <tr>
+     <td class="tableHeaderLeft">Введите код с картинки: {$captcha_image}</td>
+     <td><input type="text" name="check_image" id="check_image"  class="field" style="width:200px;"></td>
+    </tr>
+    <tr>
+     <td>&nbsp;</td>
+     <td><input type="submit" value="Добавить комментарий" /></td>
+    </tr>
+   </table>
+   </form>
+   {/if}
+ {if $connected}
+ <h1>С этим товаром мы рекомендуем:</h1>
+  {include file="products/products.tpl.html" products=$connected}
+ {/if}

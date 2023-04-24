@@ -1,0 +1,10 @@
+{foreach name="cats" from=$categories item=item}
+#{$item.category_name};;
+{foreach name="subcats" from=$item.subcategories item=subcat}
+##{$subcat.subcategory_name};;
+{foreach name="products" from=$subcat.products item=product}
+{$product.product_name|decodeRequestValue};{$product.price};
+{/foreach}
+;;;
+{/foreach}
+{/foreach}

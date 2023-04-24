@@ -1,0 +1,30 @@
+<div align="center">
+<a href="{$smarty.server.PHP_SELF}?mode=search_phrases">Поисковые фразы</a>&nbsp;&nbsp;&nbsp;
+</div>
+<form action="{$smarty.server.PHP_SELF}" method="POST" name="monthfrm" style="margin: 0px;">
+<p class="header">Посещения. Рейтинг страниц. Месяц: 
+<select name="month" onChange="document.monthfrm.submit();">
+{foreach name="months" from=$months item=item}
+ <option value="{$item.month}"{if $item.month==$smarty.request.month} selected{/if}>{$item.month}</option>
+{/foreach}
+</select></p>
+</form>
+
+{eval var=0 assign=count}
+<table width="100%" border="0" cellpadding="3" cellspacing="1">
+ <tr>
+  <td class="tableHeader">Страница</td>
+  <td class="tableHeader">Посещений</td>
+ </tr>
+ {foreach name="pages" from=$pages item=item}
+ <tr class="tableRow{cycle values="1,2"}">
+  <td><a href="{$item.page_url}" target="_blank">{$item.page_name}</a></td>
+  <td align="center">{$item.hits}{eval var=$count+$item.hits assign=count}</td>
+ </tr>
+ {/foreach}
+ <tr class="tableRow{cycle values="1,2"}">
+  <td align="right">Всего:</td>
+  <td align="center">{$count}</td>
+ </tr>
+</table>
+{if $splitMenu}<br><div align="center">{$splitMenu}</div>{/if}

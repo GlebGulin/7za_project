@@ -1,0 +1,29 @@
+# Vcard features
+RewriteEngine on
+RewriteCond     %{REQUEST_URI}  ^\/pages\/[0-9]+\/
+
+RewriteRule		^(.*)pages\/([0-9]+)\/$ /view.php?page_id=$2&%{QUERY_STRING}
+RewriteRule		^(.*)subcat\/([0-9]+)\/.*$ /products/index.php?mode=show_subcategory&subcategory_id=$2&%{QUERY_STRING}
+RewriteCond     %{REQUEST_URI}  !^\/articles\/(.*)
+RewriteRule		^(.*)cat\/([0-9]+)\/$ /products/index.php?mode=show_category&category_id=$2&%{QUERY_STRING}
+RewriteRule		^(.*)product\/([0-9]+)\/.*$ /products/index.php?mode=show_product&product_id=$2&%{QUERY_STRING}
+RewriteRule		^(.*)control\/$ /order/control.php?%{QUERY_STRING}
+RewriteRule		^(.*)sales\/$ /products/sales.php?%{QUERY_STRING}
+RewriteRule		^(.*)new\/$ /products/new.php?%{QUERY_STRING}
+RewriteRule		^(.*)leaders\/$ /products/leaders.php?%{QUERY_STRING}
+RewriteRule		^(.*)offers\/$ /products/offers.php?%{QUERY_STRING}
+RewriteRule		^(.*)recommended\/$ /products/recommended.php?%{QUERY_STRING}
+RewriteRule		^(.*)tocart\/([0-9]+)\/$ /products/index.php?mode=add_to_cart&product_id=$2&%{QUERY_STRING}
+RewriteRule		^(.*)window\/([0-9]+)\/$ /products/index.php?mode=show_product_popup&product_id=$2&%{QUERY_STRING}
+RewriteRule		^(.*)holidays\/([0-9]{2}\-[0-9]{2})\/$ /holidays/index.php?day=$2%{QUERY_STRING}
+RewriteRule		^(.*)holidays\/([0-9]{4}\-[0-9]{2})\/$ /holidays/index.php?month=$2%{QUERY_STRING}
+
+RewriteRule		^articles\/?$ /view.php?page_id=4&%{QUERY_STRING}
+RewriteRule		^articles\/cat\/([0-9]+)\/?$ /view.php?page_id=4&category_id=$1&%{QUERY_STRING}
+RewriteRule		^article\/([0-9]+)\/?$ /view.php?page_id=4&article_id=$1&%{QUERY_STRING}
+
+RewriteRule		^news\/?$ /view.php?page_id=3&%{QUERY_STRING}
+RewriteRule		^news\/([0-9]+)\/?$ /view.php?page_id=3&news_id=$1&%{QUERY_STRING}
+
+php_flag display_errors off
+

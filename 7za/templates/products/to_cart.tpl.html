@@ -1,0 +1,18 @@
+<script type="text/javascript" src="{$URL_SCRIPT}count.js" language="javascript"></script>
+<form action="{$URL_ROOT}products/index.php" method="GET">
+	<input type="hidden" name="mode" value="add_to_cart" />
+	<input type="hidden" name="product_id" value="{$product.product_id}" />
+<div class="qnt_block">
+<table border="0" cellspacing="0" cellpadding="0" id="stepper">
+  <tr>
+	<td rowspan="2" id="pa0"><input type="text" class="count" name="product_qnt" id="product_qnt" value="1" /></td>
+	<td valign="bottom"><img alt="Увеличить количество" src="{$URL_IMAGE}top.gif"></td>
+  </tr>
+  <tr>
+	<td valign="top"><img alt="Уменьшить количество" src="{$URL_IMAGE}down.gif"></td>
+  </tr>
+</table></div>&nbsp;шт.&nbsp;<button onclick="submit();">В корзину</button>
+</form>
+<script type="text/javascript">
+initStepper();
+</script>

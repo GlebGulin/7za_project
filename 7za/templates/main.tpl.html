@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1251" />
+<title>{if $pageTitle}{$pageTitle}{else}Интернет магазин 7za{/if}</title>
+<meta name="description" content="{if $pageDescription}{$pageDescription|escape}{else}Интернет-магазин 7za является поставщиком продукции для здорового образа жизни. У нас вы можете найти всё для здорового питания, витамины, БАДы, бальзамы, фиточаи, лечебную косметику, а также все для похода в баню или сауну: веники, эфирные масла{/if}" />
+<meta name="keywords" content="{if $pageKeywords}{$pageKeywords|escape}{else}всё для суши, бальзамы, сиропы, эфирные масла, веники, все для бани и сауны, правильное питание, аюрведа, пищевые добавки, восточные сладости, все для бани, фиточай, все для сауны, здоровое питание, иммунитет, БАДы, лечебная косметика, витамины, здоровый образ жизни, товары для здоровья{/if}" />
+<meta name="robots" content="index,follow" />
+<link rel="stylesheet" href="{$URL_STYLE}styles.css" type="text/css" />
+<script language="JavaScript" type="text/javascript" src="{$URL_SCRIPT}forms.js"></script>
+<meta name="MSSmartTagsPreventParsing" content="TRUE">
+<meta name="SKYPE_TOOLBAR" content="SKYPE_TOOLBAR_PARSER_COMPATIBLE" />
+</head>
+
+<body>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+<tr><td id="d_h1"><div id="d_h2">&nbsp;</div></td><td id="d_container">
+<div style="position:relative; height:200px">
+<div id="d_navigation">
+<a href="/pages/2/"{if $page.page_id == 2} class="selected"{/if}>О магазине</a><span>|</span>
+<a href="/pages/3/"{if $page.page_id == 3} class="selected"{/if}>Новости сайта</a><span>|</span>
+<a href="/pages/4/"{if $page.page_id == 4} class="selected"{/if}>Статьи</a><span>|</span>
+<a href="/pages/5/"{if $page.page_id == 5} class="selected"{/if}>Как купить</a><span>|</span>
+<a href="/pages/6/"{if $page.page_id == 6} class="selected"{/if}>Оплата и доставка</a><span>|</span>
+<a href="/pages/7/"{if $page.page_id == 7} class="selected"{/if}>Гарантии</a><span>|</span>
+<a href="/pages/8/"{if $page.page_id == 8} class="selected"{/if}>Контакты</a> </div>
+<div id="d_h3">&nbsp;</div><div id="d_h4">&nbsp;</div><div id="d_h5">&nbsp;</div><div id="d_h6">&nbsp;</div>
+<a href="/" id="d_logo">Интернет магазин 7za</a>
+
+<div id="d_phone">({$phone_pre})<span> {$phone_number}</span></div>
+<a href="/order/" id="d_cart"><span>ВАША КОРЗИНА</span> <img src="{$URL_IMAGE}cart.gif" hspace="9" border="0" align="absmiddle" /> товаров <span class="price">{$cart_count}</span> на сумму <span class="price">{$cart_total|price_format}</span> грн.</a></div>
+<div id="d_left">
+<div id="d_menu">
+
+
+{foreach name=c from=$catnav item=cat}
+<span>&nbsp;</span>
+<a href="/cat/{$cat.category_id}/"{if $cat.category_id==$category_id} class="active"{/if}>{$cat.category_name}</a>
+{if $cat.subcategories}
+<div id="d_submenu">
+	{foreach name=s from=$cat.subcategories item=subcat}
+	<span>&nbsp;</span>
+	<a href="/subcat/{$subcat.subcategory_id}/"{if $subcat.subcategory_id == $subcategory_id } class="active"{/if}>{$subcat.subcategory_name}</a>
+	{/foreach}
+</div>
+{/if}
+{/foreach}
+</div>
+
+{if $front_news|default:'' and $page.page_id != 3}
+<div class="title">
+Новости
+</div>
+<div class="left_content">
+{foreach from=$front_news item=n}
+<p><span class="date">{$n.date|date_format:"%d.%m.%Y"}</span><br />
+  <a href="/news/{$n.news_id}/" class="item_title">{$n.title}</a></p>
+<p>{$n.text|strip_tags|truncate:200}</p>
+<p><a href="/news/{$n.news_id}/" class="more">подробнее</a></p>
+{/foreach}
+</div>
+{/if}
+{if $front_articles|default:'' and $page.page_id != 4}
+<div class="title">
+Статьи
+</div>
+<div class="left_content">
+{foreach from=$front_articles item=item}
+<p><a href="/article/{$item.article_id}/" class="item_title">{$item.title}</a></p>
+<p>{$item.text|strip_tags|truncate:200}</p>
+<p><a href="/article/{$item.article_id}/" class="more">подробнее</a></p>
+{/foreach}
+</div>
+{/if}
+</div>
+<div id="d_right">
+{if $pagePath}
+  <p><a href="/">на главную</a>
+  {foreach from=$pagePath item=item}<span class="delim">&nbsp;</span> <a href="{$item.link}">{$item.title}</a>{/foreach}</p>
+{/if}
+	<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=10,0,0,0" width="700" height="120" id="7za_ksv" align="middle">
+	<param name="allowScriptAccess" value="sameDomain" />
+	<param name="allowFullScreen" value="false" />
+	<param name="movie" value="/resources/images/b/7za_ksv.swf" /><param name="quality" value="high" /><param name="bgcolor" value="#ffffff" />	<embed src="/resources/images/b/7za_ksv.swf" quality="high" bgcolor="#ffffff" width="700" height="120" name="7za_ksv" align="middle" allowScriptAccess="sameDomain" allowFullScreen="false" type="application/x-shockwave-flash" pluginspage="http://www.adobe.com/go/getflashplayer" />
+	</object>
+  {include file=$contentFile}
+</div>
+<div style="clear:both"></div>
+<div id="links" style="paddin-left: 250px; text-align: center;">{include_php file='templates/links.php'}</div>
+<div id="footer_menu">
+<a href="/pages/2/">О магазине</a><span>|</span>
+<a href="/pages/3/">Новости сайта</a><span>|</span>
+<a href="/pages/4/">Статьи</a><span>|</span>
+<a href="/pages/5/">Как купить</a><span>|</span>
+<a href="/pages/6/">Оплата и доставка</a><span>|</span>
+<a href="/pages/7/">Гарантии</a><span>|</span>
+<a href="/pages/8/">Контакты</a>
+</div>
+<div id="footer1"><div id="footer2">
+© 2008-{$smarty.now|date_format:"%Y"}, Интернет-магазин 7ZA<span>|</span>(044) 35 377 35<span>|</span><a href="/pages/8/">написать письмо</a><span id="d_developed"><a href="http://www.fairpoint.com.ua/">Разработка сайта</a>: <a href="http://www.fairpoint.com.ua/">Fair Point Development</a></span></div>
+</div>
+</td><td id="d_h7">&nbsp;</td></tr></table>
+{literal}
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-7152412-2");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+{/literal}
+</body>
+</html>

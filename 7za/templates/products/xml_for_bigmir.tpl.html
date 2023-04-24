@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<price date="{$date}">
+  <name>TND.KIEV.UA</name>
+  <url>http://www.tnd.kiev.ua</url>
+  <region>Украина</region>
+  <currency code='UAH'/>
+
+<catalog>
+{foreach from=$categories item=item}
+ <category id="{$item.category_id}">{$item.category_name}</category>
+ {foreach from=$item.subcategories item=subcat}
+ <category id="10{$subcat.subcategory_id}" parentID="{$item.category_id}">{$subcat.subcategory_name}</category>
+ {/foreach}
+{/foreach}
+</catalog>
+
+<items>
+{foreach name="cats" from=$categories item=item}
+ {foreach name="subcats" from=$item.subcategories item=subcat}
+  {foreach name="products" from=$subcat.products item=product}
+   <item id="{$product.new_product_id}">
+    <name>{$product.product_name|decodeRequestValue|replace:"&#38;":"&amp;"|replace:'"':"&quot;"}</name>
+    <url>http://www.tnd.kiev.ua/product/{$product.product_id}/</url>
+    <price>{$product.price}</price>
+    <categoryId>10{$product.subcategory_id}</categoryId>
+    <image>http://www.tnd.kiev.ua/resources/images/mm_files/{$product.image_file_id}t.jpg</image>
+    <description><![CDATA[{$product.description|strip_tags|replace:"&nbsp;":" "|strip|truncate:300:"..."}]]></description>
+   </item>
+  {/foreach}
+ {/foreach}
+{/foreach}
+</items>
+</price>

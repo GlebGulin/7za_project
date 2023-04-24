@@ -1,0 +1,30 @@
+<h3>Календарь праздников ({$date_start|date_format:"%d.%m"}-{$date_end|date_format:"%d.%m"})</h3>
+
+<div style="float: right; padding-left: 10px;">
+{$calendar_code}
+</div>
+
+<div align="right" style="padding: 5px;"><a href="index.php?mode=add_new&from={$date_start}&till={$date_end}">Добавить праздник</a></div>
+<table width="100%" border="0" cellpadding="3" cellspacing="1">
+ <tr>
+  <td class="tableHeader">Праздник</td>
+  <td class="tableHeader">Дата</td>
+  <td class="tableHeader">Товаров</td>
+  <td class="tableHeader" width="90">&nbsp;</td>
+ </tr>
+ {foreach name="holidays" from=$holidays item=item}
+ <tr class="tableRow{cycle values="1,2"}">
+  <td align="center"><a href="index.php?mode=edit&holiday_id={$item.holiday_id}&from={$date_start}&till={$date_end}">{$item.title}</a></td>
+  <td align="center">{$item.holiday_date|date_format:"%d.%m.%Y"}</td>
+  <td align="center">{$item.num_products}</td>
+  <td align="center">
+   <a href="index.php?mode=edit&holiday_id={$item.holiday_id}&from={$date_start}&till={$date_end}" title="Редактировать"><img src="{$URL_IMAGE}admin/edit.gif" border="0" align="absmiddle"></a>&nbsp;
+   <a href="#" title="Удалить" onClick="if (confirm('Вы действительно хотите удалить этот праздник?')) location.href='index.php?mode=delete&holiday_id={$item.holiday_id}&from={$date_start}&till={$date_end}'; return false;"><img src="{$URL_IMAGE}admin/delete.gif" border="0" align="absmiddle"></a>
+  </td>
+ </tr>
+ {foreachelse}
+ <tr>
+  <td class="header" align="center" colspan="4">Отсутствуют праздники</td>
+ </tr>
+ {/foreach}
+</table>

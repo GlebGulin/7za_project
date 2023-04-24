@@ -1,0 +1,8 @@
+<h1>Праздники:
+{$cal_months[$month_num]} {$month|truncate:4:false}</h1>
+<br />
+{foreach from=$holidays item=item}
+{eval var=$item.holiday_date|date_format:"%m" assign=month_n}
+<div style="padding-bottom: 15px;">{$item.holiday_date|date_format:"%e"} {$monthNames[$month_n]}:
+<a href="/holidays/{$item.holiday_date|date_format:"%m-%d"}/" class="title">{$item.title}</a></div>
+{/foreach}

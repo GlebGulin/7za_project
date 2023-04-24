@@ -1,0 +1,167 @@
+<h3>Редактирование продукта "{$product.product_name}"</h3>
+<p><a href="index.php">Все категории</a> -&gt;
+    <a href="index.php?mode=subcategories&cat_id={$subcategory.category_id}">{$category.category_name}</a> -&gt;
+      <a href="?mode=products&subcat_id={$subcategory.subcategory_id}">{$subcategory.subcategory_name}</a> </p>
+<form action="index.php?mode=save_product&product_id={$product.product_id}" method="POST" onSubmit="if (hasEmptyFields('link_to_product', false, 'Заполните форму, пожалуйста')) return false;">
+<script type="text/javascript">
+{literal}
+function selectProducts(value,field)
+{
+    document.getElementById(field).value = value;
+}
+{/literal}
+</script>
+<table width="100%" border="0" cellpadding="3" cellspacing="1">
+ <tr>
+  <td class="tableHeaderLeft">Вставить копию продукта</td>
+  <td class="tableRow1"><input type="text" name="linked_to_product" class="input" value="{$product.linked_to_product|default:"0"}" id="linked_to_product">
+  <a onClick="var win = window.open('about:blank', 'selector', 'menubar=no,scrollbars=yes,toolbar=no,directiories=no,status=no,location=no,width=600,height=500,left='+((screen.width-600)/2)+',top='+((screen.height-500)/2)); win.focus();" href="/admin/products/selector.php?field=linked_to_product" target="selector">Выбрать продукт</a>
+  <input type="hidden" name="shown" value="1">
+  <input type="submit" value="Сохранить" class="button">
+  <input type="button" onClick="location.href='index.php?mode=products&subcat_id={$product.subcategory_id}'; return false;" class="button" value="Отмена">
+  </td>
+ </tr>
+</table>
+</form>
+
+{if $product.linked_to_product == 0}
+<form action="index.php?mode=save_product&product_id={$product.product_id}" method="POST" enctype="multipart/form-data" onSubmit="if (hasEmptyFields('product_name', false, 'Заполните форму, пожалуйста')) return false;">
+<table width="100%" border="0" cellpadding="3" cellspacing="1">
+
+ <tr>
+  <td class="tableHeaderLeft">Название продукта</td>
+  <td class="tableRow1"><input type="text" name="product_name" class="input" value="{$product.product_name}" id="product_name" style="width:100%;"></td>
+ </tr>
+
+ <tr>
+  <td class="tableHeaderLeft">Описание продукта</td>
+  <td class="tableRow1">{$editor_code}</td>
+ </tr>
+
+ <tr>
+  <td class="tableHeaderLeft">Стоимость</td>
+  <td class="tableRow1"><input type="text" name="price" class="input" value="{$product.price}"></td>
+ </tr>
+
+ <tr>
+  <td class="tableHeaderLeft">Картинка</td>
+  <td class="tableRow1">{mm_image_preview file_id=$product.image_file_id delete_icon="1"}</td>
+ </tr>
+ <tr>
+  <td class="tableHeaderLeft">&nbsp;</td>
+  <td class="tableRow1"><input type="file" name="img_file" class="input"></td>
+ </tr>
+
+ <tr><td class="tableRow2" colspan="2" align="center">Дополнительные фото</td></tr>
+ {foreach name="add_photos" from=$product.add_photos item=photo}
+ <tr>
+  <td class="tableHeaderLeft">Дополнительное фото:</td>
+  <td class="tableRow1" valign="middle">{mm_image_preview file_id=$photo delete_icon="1"}&nbsp;<a href="#" onClick="if (confirm('Вы действительно хотите удалить это фото?')) location.href='index.php?mode=delete_add_photo&product_id={$product.product_id}&photo_id={$photo}'"><img src="{$URL_IMAGE}admin/delete.gif" border="0" title="Удалить" alt="Удалить"></a></td>
+ </tr>
+ {/foreach}
+
+
+ {if $product.add_photos|@count<8}
+ <script language="JavaScript">
+ <!--
+ {literal}
+ var numlines = 1;
+ function addFile(btn) {
+ 	if (numlines>7-{/literal}{$product.add_photos|@count}{literal}) return true;
+    tr = btn;
+    while (tr.tagName != 'TR') tr = tr.parentNode;
+    var newTr = tr.parentNode.insertBefore(tr.cloneNode(true),tr.nextSibling);
+    var input = newTr.getElementsByTagName('INPUT')[0];
+    input.value = '';
+    numlines++;
+ }
+ function delFile(btn) {
+    if (numlines>1) {
+        tr = btn;
+        while (tr.tagName != 'TR') tr = tr.parentNode;
+        tr.parentNode.removeChild(tr);
+        numlines--;
+    } else alert('Нельзя удалить последнюю строку');
+ }
+ {/literal}
+ //-->
+ </script>
+
+ <tr>
+  <td class="tableHeaderLeft">Добавить фото:</td>
+  <td class="tableRow1">
+  	<input type="file" name="add_photos[]" class="input">&nbsp;&nbsp;
+  	<a onClick="if (document.getElementById) delFile(this)" title="Удалить эту строку" href="javascript:void(0);">
+  	<img src="{$URL_IMAGE}admin/delete.gif" border="0" alt="Удалить эту строку" align="absmiddle"></a>&nbsp;
+  	<a onClick="if (document.getElementById) addFile(this)" title="Добавить еще одну строку" href="javascript:void(0);">
+  	<img src="{$URL_IMAGE}admin/add.gif" border="0" alt="Добавить еще одну строку" align="absmiddle"></a>
+  </td>
+ </tr>
+ {/if}
+
+ <tr>
+  <td class="tableHeaderLeft">Связанные товары</td>
+  <td class="tableRow1"><input type="text" name="conn_goods" id="conn_goods" value="{$product.conn_goods}" class="input"> <button onClick="var win = window.open('/admin/products/selector.php?mode=multiple&field=conn_goods&selected={$product.conn_goods}', 'selector', 'menubar=no,scrollbars=yes,toolbar=no,directiories=no,status=no,location=no,width=600,height=500,left='+((screen.width-600)/2)+',top='+((screen.height-500)/2)); win.focus(); return false;" class="button">Выбрать</button> (ID товаров через запятую)</td>
+ </tr>
+
+ <tr>
+  <td class="tableHeaderLeft">Просмотров</td>
+  <td class="tableRow1"><input type="text" name="view" value="{$product.view}" class="input"></td>
+ </tr>
+
+ <tr>
+  <td class="tableHeaderLeft">Скидка, %</td>
+  <td class="tableRow1"><input type="text" name="discount" value="{$product.discount}" class="input"></td>
+ </tr>
+
+ <tr>
+  <td class="tableHeaderLeft">Начало распродажи</td>
+  <td class="tableRow1">{html_select_date end_year="+1" field_array="discount_start_array" field_order=DMY time=$product.discount_start}</td>
+ </tr>
+
+ <tr>
+  <td class="tableHeaderLeft">Конец распродажи</td>
+  <td class="tableRow1">{html_select_date end_year="+1" field_array="discount_finish_array" field_order=DMY time=$product.discount_finish}</td>
+ </tr>
+
+ <tr>
+  <td class="tableHeaderLeft">Показывать продукт</td>
+  <td class="tableRow1"><input type="checkbox" name="shown" value="1"{if $product.shown} checked{/if}></td>
+ </tr>
+
+ <tr>
+  <td class="tableHeaderLeft">Товар ожидается</td>
+  <td class="tableRow1"><input type="checkbox" name="absent" value="1"{if $product.absent} checked{/if}></td>
+ </tr>
+
+ <tr>
+  <td class="tableHeaderLeft">Рекомендованный товар</td>
+  <td class="tableRow1"><input type="checkbox" name="recommended" value="1"{if $product.recommended} checked{/if}></td>
+ </tr>
+
+ <tr>
+  <td class="tableHeaderLeft">Специальное предложение</td>
+  <td class="tableRow1"><input type="checkbox" name="special_offer" value="1"{if $product.special_offer} checked{/if}></td>
+ </tr>
+
+ {if $parameters|@count}
+ <tr><td class="tableRow1" colspan="2" align="center"><strong>Параметры продукта</strong></td></tr>
+ {foreach name="parameters" from=$parameters item=item}
+ <tr>
+ {if $item.is_header}
+  <td class="tableHeaderLeft" colspan="2">{$item.parameter_name}</td>
+ {else}
+  <td class="tableHeaderLeft">{$item.parameter_name}{if $item.unit}, {$item.unit}{/if}</td>
+  <td class="tableRow1"><input class="input" type="text" name="parameters[{$item.parameter_id}]" value="{$item.value}" /></td>
+ {/if}
+ </tr>
+ {/foreach}
+ {/if}
+
+ <tr>
+  <td>&nbsp;</td>
+  <td><br><input type="submit" class="button" value="Сохранить">&nbsp; <input type="button" onClick="location.href='index.php?mode=products&subcat_id={$product.subcategory_id}'; return false;" class="button" value="Отмена"></td>
+ </tr>
+</table>
+</form>
+{/if}

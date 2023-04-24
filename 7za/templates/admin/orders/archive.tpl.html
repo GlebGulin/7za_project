@@ -1,0 +1,21 @@
+<h3>Архив заказов</h3>
+<div align="center">{$splitMenuCode}</a></div><br />
+<table width="95%" border="0" cellpadding="3" cellspacing="1" align="center">
+ <tr>
+  <td class="tableHeader">ID</td>
+  <td class="tableHeader">ФИО</td>
+  <td class="tableHeader">Дата и время</td>
+  <td class="tableHeader">Сумма заказа</td>
+  <td class="tableHeader">Статус</td>  
+ </tr>
+ {foreach name="orders" from=$orders item="item"}
+ <tr class="tableRow{if $smarty.foreach.orders.iteration is odd}1{else}2{/if}">
+  <td align="center">{$item.order_id}</td>
+  <td align="center"><a href="archive.php?mode=view_order&id={$item.order_id}&smIndex={$smIndex}">{$item.surname} {$item.firstname} {$item.lastname}</a></td>
+  <td align="center">{$item.added_time|date_format:"%d.%m.%Y %H:%M"}</td>
+  <td align="center">{$item.order_summ}</td>  
+  <td align="center">{$item.status_name}</td>
+ </tr>
+ {/foreach}
+</table>
+<br /><div align="center">{$splitMenuCode}</a></div>

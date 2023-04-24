@@ -1,0 +1,86 @@
+<h3>Подкатегории категории "{$category.category_name}"</h3>
+<p><a href="index.php">Все категории</a> -&gt; {$category.category_name}</p>
+
+<form action="index.php?mode=save_category&cat_id={$category.category_id}" method="POST" onSubmit="if (hasEmptyFields('category_name', false, 'Заполните форму, пожалуйста')) return false;">
+<table border="0" width="100%" cellpadding="3" cellspacing="1">
+ <tr>
+  <td class="tableHeader" colspan="2">Редактирование категории</td>
+ </tr>
+ <tr>
+  <td class="tableHeaderLeft">Название категории</td>
+  <td class="tableRow1"><input type="text" name="category_name" id="category_name" value="{$category.category_name|replace:'"':"&quot;"}" class="input"></td>
+ </tr>
+ <tr>
+  <td>&nbsp;</td>
+  <td><input type="submit" value="Сохранить" class="button"></td>
+ </tr>
+</table>
+</form>
+
+<table width="100%" border="0" cellpadding="3" cellspacing="1">
+ <tr>
+  <td class="tableHeader">ID</td>
+  <td class="tableHeader">Название подкатегории</td>
+  <td class="tableHeader" width="70">Позиция</td>
+  <td class="tableHeader" width="70">Показывать</td>
+  <td class="tableHeader" width="90">&nbsp;</td>
+ </tr>
+ {foreach name="subcategories" from=$subcategories item=item}
+ <tr class="tableRow{cycle values="1,2"}">
+  <td align="center">{$item.subcategory_id}</td>
+  <td align="center"><a href="index.php?mode=products&subcat_id={$item.subcategory_id}">{$item.subcategory_name}</a></td>
+  <td align="center">
+   <a href="index.php?mode=move_subcat_up&subcat_id={$item.subcategory_id}"><img src="{$URL_IMAGE}admin/up.gif" border="0" alt="Вверх"></a>&nbsp;
+   <a href="index.php?mode=move_subcat_down&subcat_id={$item.subcategory_id}"><img src="{$URL_IMAGE}admin/down.gif" border="0" alt="Вниз"></a>
+  </td>
+  <td align="center">{if $item.hidden}нет{else}да{/if}</td>
+  <td align="center">
+   <a href="index.php?mode=products&subcat_id={$item.subcategory_id}" title="Редактировать"><img src="{$URL_IMAGE}admin/edit.gif" border="0" align="absmiddle" alt="Редактировать"></a>&nbsp;
+   <a href="index.php?mode=hide_subcat&subcat_id={$item.subcategory_id}" title="Скрыть/показать"><img src="{$URL_IMAGE}admin/show.gif" border="0" align="absmiddle" alt="Скрыть/показать"></a>&nbsp;
+   <a href="#" onClick="if (confirm('Вы действительно хотите удалить эту подкатегорию со всеми продуктами в ней?\n{$item.subcategory_name}')) location.href='index.php?mode=subcat_delete&subcat_id={$item.subcategory_id}';" title="Удалить"><img src="{$URL_IMAGE}admin/delete.gif" border="0" align="absmiddle" alt="Удалить"></a>
+  </td>
+ </tr>
+ {foreachelse}
+ <tr>
+  <td align="center" colspan="4">Нет подкатегорий в этой категории</td>
+ </tr>
+ {/foreach}
+</table>
+<br/><br/>
+
+<form action="index.php?mode=save_new_subcategory&cat_id={$category.category_id}" method="POST" enctype="multipart/form-data" onSubmit="if (hasEmptyFields('subcategory_name', false, 'Введите название подкатегории')) return false;">
+<table width="100%" border="0" cellpadding="3" cellspacing="1">
+ <tr>
+  <td class="tableHeader" colspan="2">Добавление новой подкатегории</td>
+ </tr>
+ <tr>
+  <td class="tableHeaderLeft">Название подкатегории</td>
+  <td class="tableRow1"><input type="text" name="subcategory_name" id="subcategory_name" class="input"></td>
+ </tr>
+ <tr>
+  <td class="tableHeaderLeft">Группа параметров</td>
+  <td><select name="group_id" class="input">
+  <option value="0"></option>
+  {foreach from=$groups item=item}
+  <option value="{$item.group_id}">{$item.group_name}</option>
+  {/foreach}
+  </select></td>
+ </tr>
+ <tr>
+  <td class="tableHeaderLeft">Картинка подкатегории</td>
+  <td class="tableRow1"><input type="file" name="image_file" id="image_file" class="input"></td>
+ </tr>
+ <tr>
+  <td class="tableHeaderLeft">Выделить</td>
+  <td class="tableRow1"><input type="checkbox" name="marked" id="marked" value="1"></td>
+ </tr>
+ <tr>
+  <td class="tableHeaderLeft">Скрыть</td>
+  <td class="tableRow1"><input type="checkbox" name="hidden" id="hidden" value="1"></td>
+ </tr>
+ <tr>
+  <td>&nbsp;</td>
+  <td><input type="submit" value="Сохранить" class="button"></td>
+ </tr>
+</table>
+</form>

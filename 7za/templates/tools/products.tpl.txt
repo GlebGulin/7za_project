@@ -1,0 +1,3 @@
+{foreach name="products" from=$products item=item}
+{$item.subcategory_id}|{$item.product_name|decodeRequestValue}|<img src="http://www.tnd.kiev.ua/resources/images/mm_files/{$item.image_file_id}t.jpg" border="0" alt="{$item.product_name|decodeRequestValue}" title="{$item.product_name|decodeRequestValue}">{$item.description|strip_tags|truncate:250|replace:"\r":""|replace:"\n":""}|http://www.tnd.kiev.ua/product/{$item.product_id}/
+{/foreach}

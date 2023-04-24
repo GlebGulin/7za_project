@@ -1,0 +1,50 @@
+<h1>Редактирование группы параметров продуктов</h1>
+
+<form action="parameters.php?mode=save_group&group_id={$group.group_id}" method="POST" enctype="multipart/form-data" onSubmit="if (hasEmptyFields('group_name', false, 'Заполните форму, пожалуйста.')) return false;">
+<table width="100%" border="0" cellpadding="3" cellspacing="1" align="center">
+
+ <tr>
+  <td class="tableHeaderLeft">Название группы параметров:</td>
+  <td class="tableRow1"><input type="text" name="group_name" class="input" value="{$group.group_name}" id="group_name" /></td>
+ </tr>
+
+ <tr>
+  <td>&nbsp;</td>
+  <td>
+    <input type="submit" class="button" value="Сохранить">&nbsp;
+    <input type="button" onClick="location.href='parameters.php'; return false;" class="button" value="Отмена">
+   </td>
+ </tr>
+</table>
+</form>
+
+	<table width="100%" border="0" cellpadding="3" cellspacing="1" align="center">
+		<tr>
+			<td colspan="5" align="right"><a href="parameters.php?mode=add_parameter&group_id={$group.group_id}">Добавить параметр</a></td>
+		</tr>
+		<tr>
+			<td class="tableHeader" colspan="5">Параметры</td>
+		</tr>
+		<tr>
+			<td class="tableHeader">ID</td>
+			<td class="tableHeader">Название</td>
+			<td class="tableHeader">Ед.Изм.</td>
+			<td class="tableHeader" width="60">&nbsp;</td>
+			<td class="tableHeader" width="60">&nbsp;</td>
+		</tr>
+		{foreach name="parameters" from=$parameters item=item}
+			<tr class="tableRow{if $smarty.foreach.parameters.iteration is odd}1{else}2{/if}">
+				<td align="center">{$item.parameter_id}</td>
+				<td align="center">{if $item.is_header}<strong>{$item.parameter_name}</strong>{else}{$item.parameter_name}{/if}</td>
+				<td align="center">{$item.unit}</td>
+				<td align="center">
+					<a href="parameters.php?mode=move_parameter_up&parameter_id={$item.parameter_id}"><img src="{$URL_IMAGE}admin/up.gif" border="0" alt="Вверх" title="Вверх"></a>&nbsp;
+					<a href="parameters.php?mode=move_parameter_down&parameter_id={$item.parameter_id}"><img src="{$URL_IMAGE}admin/down.gif" border="0" alt="Вниз" title="Вниз"></a>
+				</td>
+				<td align="center">
+					<a href="parameters.php?mode=edit_parameter&parameter_id={$item.parameter_id}"><img src="{$URL_IMAGE}admin/edit.gif" border="0" align="absmiddle" alt="Редактировать" title="Редактировать"></a>&nbsp;
+					<a href="#" onClick="if (confirm('Вы действительно хотите удалить этот параметр?\n{$item.parameter_name}')) location.href='parameters.php?mode=delete_parameter&parameter_id={$item.parameter_id}';"><img src="{$URL_IMAGE}admin/delete.gif" border="0" align="absmiddle" alt="Удалить" title="Удалить"></a>
+				</td>
+			</tr>
+		{/foreach}
+	</table>

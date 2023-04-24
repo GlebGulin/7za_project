@@ -1,0 +1,14 @@
+ <h3>Просмотр заказа </h3>
+ 
+ {include file = "admin/orders/order.tpl.html" }
+ 
+ <br />
+ <form action="index.php?mode=next_status&id={$order.order_id}" method="post">  	
+ 	<div align="center">
+				{if $order.status_id == 1}<input type="submit" value="Принять заказ">{/if}
+				{if $order.status_id == 1}&nbsp;&nbsp;<input type="button" value="Удалить" onclick="location.href='index.php?mode=delete&id={$order.order_id}'" >{/if}
+				{if $order.status_id == 2}<input type="submit" value="Доставлен">{/if}
+ 				&nbsp;&nbsp;
+ 				<input type="button" value="Отмена" onclick="location.href='index.php'" />
+ 	</div> 			
+ </form>

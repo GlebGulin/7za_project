@@ -1,0 +1,41 @@
+<script language="JavaScript" type="text/javascript"><!--
+ {literal}
+ function submitForm() {
+     if (document.getElementById('page_name').value == "") { alert('Укажите заголовок страницы'); document.getElementById('page_name').focus(); return false; }
+     
+     return true;
+ }
+ {/literal}
+//-->
+</script>
+<p class="header" align="center">Создание новой страницы</p>
+<form action="index.php?mode=save_new" method="POST" enctype="multipart/form-data" name="frm" onSubmit="return submitForm();">
+<table width="80%" border="0" cellpadding="2" cellspacing="0" align="center">
+ <tr>
+  <td align="right" width="50%">Язык страницы:</td>
+  <td width="50%"><select name="language" class="input">
+    <option value="rus"{if $smarty.session.language=="rus"} selected{/if}>Русский</option>
+    <option value="eng"{if $smarty.session.language=="eng"} selected{/if}>Английский</option>
+   </select>
+  </td>
+ </tr>
+ <tr>
+  <td align="right" width="50%">Заголовок страницы:</td>
+  <td width="50%"><input type="text" name="page_name" id="page_name" class="input"></td>
+ </tr>
+ <tr>
+  <td align="right">Показывать страницу:</td>
+  <td><input type="checkbox" name="shown" value="1" checked></td>
+ </tr>
+ <tr>
+  <td colspan="2" align="center"><br>Текст страницы:<br>
+  {$editor_code}
+  </td>
+ </tr>
+ <tr>
+  <td colspan="2" align="center"><br><input type="submit" class="button" value="Сохранить">&nbsp;
+   <input type="button" value="Отмена" class="button" onClick="location.href='index.php';">
+  </td>
+ </tr>
+</table>
+</form>

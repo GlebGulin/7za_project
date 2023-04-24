@@ -1,0 +1,24 @@
+<script language="JavaScript" type="text/javascript" src="{$URL_SCRIPT}forms.js"></script>
+<form action="/pages/17/" method="post" onSubmit="if (hasEmptyFields('email fullname captcha_code', false, 'Заполните форму, пожалуйста')) return false;">
+<input type="hidden" name="mode" value="subscribe">
+<h2>Подписка на рассылку</h2>
+<table width="95%"  border="0" cellspacing="1" cellpadding="3">
+  <tr>
+    <td width="200">Ваше имя, фамилия:</td>
+    <td><input type="text" name="fullname" class="text" id="fullname" value="{$fullname}"></td>
+  </tr>
+  <tr>
+    <td>Ваш e-mail адрес:</td>
+    <td><input type="text" name="email" class="text" id="email" value="{$email}"></td>
+  </tr>
+  <tr>
+    <td class="noborder">Введите код, изображенный на картинке:<br />{$captcha_image}</td>
+    <td><input type="text" name="captcha_code" class="text" id="captcha_code"></td>
+  </tr>
+  <tr>
+    <td colspan="2">
+      <input type="submit" value="Подписаться" class="button">
+    </td>
+  </tr>
+</table>
+</form>

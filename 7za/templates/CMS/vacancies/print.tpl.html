@@ -1,0 +1,25 @@
+<html>
+<head>
+ <meta http-equiv="Content-Type" content="text/html; charset=windows-1251" />
+ <link href="{$URL_STYLE}styles.css" rel="stylesheet" type="text/css" />
+ <title>{if $pageTitle}{$pageTitle}{else}ОАО Финексбанк{/if} :: Версия для печати </title>
+</head>
+<body marginheight="0" marginwidth="0" topmargin="0" bottommargin="0" rightmargin="0"  leftmargin="0" bgcolor="#ffffff">
+
+
+<h3>{$page.title}</h3>
+    {$page.content}
+    
+<br /><br />
+
+{if $vacancies|@count}
+
+{foreach name=vac from=$vacancies item=item}
+	<br /><strong>{$item.post}</strong><br />
+				  {$item.requir}<br />
+{/foreach}      
+
+{/if}
+
+</body>
+</html>    
